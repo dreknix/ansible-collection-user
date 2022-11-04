@@ -1,0 +1,102 @@
+---
+
+# Install all required packages
+
+- name: Update apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+  when: ansible_os_family == "Debian"
+
+- name: Install all required packages
+  become: true
+  ansible.builtin.package:
+    pkg:
+      - ack-grep
+      - apache2-utils
+      - arp-scan
+      - aspell
+      - aspell-en
+      - aspell-de
+      - atop
+      - bash
+      - bash-completion
+      - bat
+      - bc
+      - bibclean
+      - chktex
+      - clang
+      - clang-format
+      - clang-tidy
+      - cmake
+      - cppcheck
+      - curl
+      - dmenu
+      - direnv
+      - dnsutils
+      - dos2unix
+      - ethtool
+      - feh
+      - flake8
+      - fzf
+      - gcc
+      - g++
+      - git
+      - gitlint
+      - gnuplot
+      - golang
+      - htop
+      - httpie
+      - imagemagick
+      - inxi
+      - ipcalc
+      - iperf3
+      - ipv6calc
+      - iotop
+      - jq
+      - keepassxc
+      - kpcli
+      - lsof
+      - make
+      - manpages
+      - manpages-dev
+      - mlocate
+      - most
+      - netcat-openbsd
+      - neofetch
+      - newsboat
+      - ncdu
+      - nmap
+      - nnn
+      - octave
+      - openssh-client
+      - patat
+      - pdftk
+      - python3
+      - python3-pip
+      - python3-wheel
+      - python3-venv
+      - pwgen
+      - rofi
+      - shellcheck
+      - silversearcher-ag
+      - sshpass
+      - subversion
+      - taskwarrior
+      - tig
+      - tldr
+      - tmux
+      - tree
+      - unzip
+      - vim
+      - vim-scripts
+      - vim-gtk
+      - wget
+      - xclip
+      - xkcdpass
+      - yamllint
+      - zip
+      - zsh
+
+...

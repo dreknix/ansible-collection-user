@@ -1,0 +1,25 @@
+---
+
+bin_hadolint_force_install: >-
+  {{ default_bin_force_install | default('false', true) }}
+
+bin_hadolint_bin_path: >-
+  {{ default_bin_path | default('~/bin', true) }}/hadolint
+
+bin_hadolint_version: >-
+  {{ lookup('ini', 'version section=hadolint file={{ tools_version_file }}') }}
+
+bin_hadolint_github_repo_name: >-
+  {{ lookup('ini', 'name section=hadolint file={{ tools_version_file }}') }}
+
+bin_hadolint_os: >-
+  {{ default_bin_os | default('Linux', true) }}
+
+bin_hadolint_arch: >-
+  {{ default_bin_arch | default('x86_64', true) }}
+
+bin_hadolint_url: "{{ github_release_download }}/\
+  v{{ bin_hadolint_version }}/\
+  hadolint-{{ bin_hadolint_os }}-{{ bin_hadolint_arch }}"
+
+...

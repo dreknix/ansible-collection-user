@@ -1,0 +1,40 @@
+---
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  PLAYBOOK: dreknix.user.playbook
+  EXTRA_VARS: -e 'targets=localhost'
+
+tasks:
+
+  versions:
+    desc: Check versions of installed tools
+    cmds:
+      - ./scripts/check_versions.py
+
+  check:
+    desc: Check syntax of the playbook
+    cmds:
+      - ansible-playbook {{.EXTRA_VARS}} --syntax-check {{.PLAYBOOK}}
+
+  run:
+    desc: Run playbook {{.PLAYBOOK}}
+    deps: [check]
+    cmds:
+      - ansible-playbook {{.EXTRA_VARS}} {{.PLAYBOOK}}
+
+  run:bin:
+    desc: Run {{.PLAYBOOK}} with tag bin
+    deps: [check]
+    cmds:
+      - ansible-playbook {{.EXTRA_VARS}} --tag user_bin {{.PLAYBOOK}}
+
+  run:packages:
+    desc: Run {{.PLAYBOOK}} with tag packages
+    deps: [check]
+    cmds:
+      - ansible-playbook {{.EXTRA_VARS}} --tag user_packages {{.PLAYBOOK}}
+
+...

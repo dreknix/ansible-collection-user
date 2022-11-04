@@ -1,0 +1,23 @@
+---
+
+#
+# Configure local user
+#
+
+- name: Setup local user
+  hosts: '{{ targets | default("all") }}'
+  gather_facts: true
+
+  roles:
+
+    - role: dreknix.user.bin
+      tags:
+        - user
+        - user_bin
+
+    - role: dreknix.user.packages
+      tags:
+        - user
+        - user_packages
+
+...

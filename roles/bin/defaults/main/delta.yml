@@ -1,0 +1,32 @@
+---
+
+bin_delta_force_install: >-
+  {{ default_bin_force_install | default('false', true) }}
+
+bin_delta_bin_path: >-
+  {{ default_bin_path | default('~/bin', true) }}/delta
+
+bin_delta_version: >-
+  {{ lookup('ini', 'version section=delta file={{ tools_version_file }}') }}
+
+bin_delta_github_repo_name: >-
+  {{ lookup('ini', 'name section=delta file={{ tools_version_file }}') }}
+
+bin_delta_os: >-
+  {{ default_bin_os | default('linux', true) }}
+
+bin_delta_arch: >-
+  {{ default_bin_arch | default('x86_64', true) }}
+
+bin_delta_url: "{{ github_release_download }}/\
+  {{ bin_delta_version }}/\
+  delta-{{ bin_delta_version }}-\
+  {{ bin_delta_arch }}-unknown-{{ bin_delta_os }}-gnu.tar.gz"
+
+bin_delta_url_completion: >-
+  {{ github_raw_download }}/master/etc/completion/completion.bash
+
+bin_delta_tmp_path: >-
+  /tmp/delta-{{ bin_delta_version }}-{{ bin_delta_arch }}-unknown-{{ bin_delta_os }}-gnu
+
+...

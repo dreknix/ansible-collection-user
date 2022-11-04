@@ -1,0 +1,64 @@
+---
+
+- name: Set GitHub repository name
+  ansible.builtin.set_fact:
+    github_repo_name: "{{ bin_taskwarrior_github_repo_name }}"
+
+- name: Install packages needed for building taskwarrior
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - cmake
+    - make
+    - g++
+    - libgnutls28-dev
+    - uuid-dev
+
+- name: Download and unarchive taskwarrior into temporary location
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "{{ bin_taskwarrior_url }}"
+    dest: "/tmp"
+    mode: 0755
+
+- name: Build taskwarrior
+  ansible.builtin.command:
+    cmd: "{{ item }}"
+    chdir: "{{ bin_taskwarrior_tmp_path }}"
+  with_items:
+    - cmake -DCMAKE_BUILD_TYPE=release .
+    - make
+    - sed -i "s/task/taskwarrior/g" "scripts/bash/task.sh"
+    - sed -i "s/taskwarriorwarrior/taskwarrior/g" "scripts/bash/task.sh"
+    - cp "scripts/bash/task.sh" "scripts/bash/t.sh"
+    - sed -i "s/complete -o nospace -F _taskwarrior taskwarrior/complete -o nospace -F _taskwarrior t/g"
+             "scripts/bash/t.sh"
+  changed_when: false
+
+- name: Move taskwarrior binary into place
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ bin_taskwarrior_tmp_path }}/src/task"
+    dest: "{{ bin_taskwarrior_bin_path }}"
+    mode: 0755
+
+- name: Move taskwarrior bash completion into place
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+  with_items:
+    - src: "{{ bin_taskwarrior_tmp_path }}/scripts/bash/task.sh"
+      dest: "{{ user_bin_bash_completion_path }}/taskwarrior.sh"
+    - src: "{{ bin_taskwarrior_tmp_path }}/scripts/bash/t.sh"
+      dest: "{{ user_bin_bash_completion_path }}/t.sh"
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_taskwarrior_tmp_path }}"
+    state: absent
+
+...

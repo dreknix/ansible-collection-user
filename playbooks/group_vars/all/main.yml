@@ -1,0 +1,11 @@
+---
+
+tools_version_file: "files/tools.cnf"
+
+github_release_download:
+  https://github.com/{{ github_repo_name }}/releases/download
+
+github_raw_download:
+  https://raw.githubusercontent.com/{{ github_repo_name }}
+
+...

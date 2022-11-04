@@ -1,0 +1,33 @@
+---
+
+- name: Set GitHub repository name
+  ansible.builtin.set_fact:
+    github_repo_name: "{{ bin_delta_github_repo_name }}"
+
+- name: Download and unarchive delta into temporary location
+  ansible.builtin.unarchive:
+    src: "{{ bin_delta_url }}"
+    dest: "/tmp"
+    mode: 0755
+    remote_src: true
+    creates: "{{ bin_delta_tmp_path }}"
+
+- name: Move delta binary into place
+  ansible.builtin.copy:
+    src: "{{ bin_delta_tmp_path }}/delta"
+    dest: "{{ bin_delta_bin_path }}"
+    mode: 0755
+    remote_src: true
+
+- name: Download delta bash completion into place
+  ansible.builtin.get_url:
+    url: "{{ bin_delta_url_completion }}"
+    dest: "{{ user_bin_bash_completion_path }}/delta.sh"
+    mode: 0644
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_delta_tmp_path }}"
+    state: absent
+
+...

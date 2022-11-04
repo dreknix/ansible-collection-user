@@ -1,0 +1,29 @@
+---
+
+- name: Check if hadolint is installed
+  ansible.builtin.stat:
+    path: "{{ bin_hadolint_bin_path }}"
+  register: bin_hadolint_binary
+
+- name: Check which version of hadolint is installed
+  ansible.builtin.shell: |
+    {{ bin_hadolint_bin_path }} --version
+  register: bin_hadolint_version_check
+  when: >
+    bin_hadolint_binary.stat.exists
+    and bin_hadolint_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of hadolint
+  ansible.builtin.include_tasks: hadolint_install.yml
+  vars:
+    bin_hadolint_version_string: >-
+      Haskell Dockerfile Linter {{ bin_hadolint_version }}
+  when: >
+    not (bin_hadolint_binary.stat.exists
+        and bin_hadolint_binary.stat.executable)
+    or bin_hadolint_version_check.stdout is not defined
+    or bin_hadolint_version_string != bin_hadolint_version_check.stdout
+    or bin_hadolint_force_install | bool
+
+...

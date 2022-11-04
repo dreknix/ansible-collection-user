@@ -1,0 +1,26 @@
+---
+
+- name: Set GitHub repository name
+  ansible.builtin.set_fact:
+    github_repo_name: "{{ bin_micro_github_repo_name }}"
+
+- name: Download and unarchive micro into temporary location
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "{{ bin_micro_url }}"
+    dest: "/tmp/"
+    mode: 0755
+
+- name: Move micro binary into place
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ bin_micro_tmp_path }}/micro"
+    dest: "{{ bin_micro_bin_path }}"
+    mode: 0755
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_micro_tmp_path }}"
+    state: absent
+
+...

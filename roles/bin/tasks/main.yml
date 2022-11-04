@@ -1,0 +1,58 @@
+---
+
+#
+# Use import to inheritance the 'tags'
+#
+
+- name: Creates bin directory
+  ansible.builtin.file:
+    path: "{{ default_bin_path | default('~/bin', true) }}"
+    state: directory
+    mode: 0755
+
+- name: Creates bash completion directory
+  ansible.builtin.file:
+    path: "{{ user_bin_bash_completion_path }}"
+    state: directory
+    mode: 0755
+
+- name: Update apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+  when: ansible_os_family == "Debian"
+
+- name: Include task for installing delta
+  ansible.builtin.import_tasks: delta_main.yml
+  tags: user_bin_delta
+
+- name: Include task for installing gopass
+  ansible.builtin.import_tasks: gopass_main.yml
+  tags: user_bin_gopass
+
+- name: Include task for installing gopass-jsonapi
+  ansible.builtin.import_tasks: gopass_jsonapi_main.yml
+  tags: user_bin_gopass_jsonapi
+
+- name: Include task for installing hadolint
+  ansible.builtin.import_tasks: hadolint_main.yml
+  tags: user_bin_hadolint
+
+- name: Include task for installing micro
+  ansible.builtin.import_tasks: micro_main.yml
+  tags: user_bin_micro
+
+- name: Include task for installing restic
+  ansible.builtin.import_tasks: restic_main.yml
+  tags: user_bin_restic
+
+- name: Include task for installing task
+  ansible.builtin.import_tasks: task_main.yml
+  tags: user_bin_task
+
+- name: Include task for installing taskwarrior
+  ansible.builtin.import_tasks: taskwarrior_main.yml
+  tags: user_bin_taskwarrior
+
+...

@@ -1,0 +1,27 @@
+---
+
+- name: Check if micro is installed
+  ansible.builtin.stat:
+    path: "{{ bin_micro_bin_path }}"
+  register: bin_micro_binary
+
+- name: Check which version of micro is installed
+  ansible.builtin.shell: |
+    {{ bin_micro_bin_path }} -version
+  register: bin_micro_version_check
+  when: >
+    bin_micro_binary.stat.exists
+    and bin_micro_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of micro
+  ansible.builtin.include_tasks: micro_install.yml
+  vars:
+    bin_micro_version_string: "Version: {{ bin_micro_version }}"
+  when: >
+    not (bin_micro_binary.stat.exists and bin_micro_binary.stat.executable)
+    or bin_micro_version_check.stdout is not defined
+    or bin_micro_version_string not in bin_micro_version_check.stdout
+    or bin_micro_force_install | bool
+
+...

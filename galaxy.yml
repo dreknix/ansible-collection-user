@@ -1,0 +1,25 @@
+---
+
+namespace: dreknix
+name: user
+version: 0.1.0
+
+readme: README.md
+
+authors:
+  - dreknix https://github.com/dreknix
+
+description: Bunch of Ansible roles for user setup
+
+license:
+  - MIT
+
+tags: []
+
+dependencies: {}
+
+repository: https://github.com/dreknix/ansible-collections-user
+
+build_ignore: []
+
+...

@@ -1,0 +1,32 @@
+---
+
+bin_gopass_force_install: >-
+  {{ default_bin_force_install | default('false', true) }}
+
+bin_gopass_bin_path: >-
+  {{ default_bin_path | default('~/bin', true) }}/gopass
+
+bin_gopass_version: >-
+  {{ lookup('ini', 'version section=gopass file={{ tools_version_file }}') }}
+
+bin_gopass_github_repo_name: >-
+  {{ lookup('ini', 'name section=gopass file={{ tools_version_file }}') }}
+
+bin_gopass_os: >-
+  {{ default_bin_os | default('linux', true) }}
+
+bin_gopass_arch: >-
+  {{ default_bin_arch | default('amd64', true) }}
+
+bin_gopass_url: "{{ github_release_download }}/\
+  v{{ bin_gopass_version }}/\
+  gopass-\
+  {{ bin_gopass_version }}-{{ bin_gopass_os }}-{{ bin_gopass_arch }}.tar.gz"
+
+bin_gopass_tmp_path: >-
+  /tmp/gopass_{{ bin_gopass_version }}
+
+bin_gopass_config_file: >-
+  {{ xdg_config_home }}/gopass/config.yml
+
+...

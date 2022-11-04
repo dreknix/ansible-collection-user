@@ -1,0 +1,27 @@
+---
+
+- name: Check if restic is installed
+  ansible.builtin.stat:
+    path: "{{ bin_restic_bin_path }}"
+  register: bin_restic_binary
+
+- name: Check which version of restic is installed
+  ansible.builtin.shell: |
+    {{ bin_restic_bin_path }} version
+  register: bin_restic_version_check
+  when: >
+    bin_restic_binary.stat.exists
+    and bin_restic_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of restic
+  ansible.builtin.include_tasks: restic_install.yml
+  vars:
+    bin_restic_version_string: "restic {{ bin_restic_version }}"
+  when: >
+    not (bin_restic_binary.stat.exists and bin_restic_binary.stat.executable)
+    or bin_restic_version_check.stdout is not defined
+    or bin_restic_version_string not in bin_restic_version_check.stdout
+    or bin_restic_force_install | bool
+
+...

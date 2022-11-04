@@ -1,0 +1,57 @@
+---
+
+- name: Check if gopass is installed
+  ansible.builtin.stat:
+    path: "{{ bin_gopass_bin_path }}"
+  register: bin_gopass_binary
+
+- name: Check which version of gopass is installed
+  ansible.builtin.shell: |
+    {{ bin_gopass_bin_path }} version
+  register: bin_gopass_version_check
+  when: >
+    bin_gopass_binary.stat.exists
+    and bin_gopass_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of gopass
+  ansible.builtin.include_tasks: gopass_install.yml
+  vars:
+    bin_gopass_version_string: "gopass {{ bin_gopass_version }}"
+  when: >
+    not (bin_gopass_binary.stat.exists and bin_gopass_binary.stat.executable)
+    or bin_gopass_version_check.stdout is not defined
+    or bin_gopass_version_string not in bin_gopass_version_check.stdout
+    or bin_gopass_force_install | bool
+
+- name: Ansible check gopass configuration exists.
+  ansible.builtin.stat:
+    path: "{{ bin_gopass_config_file }}"
+  register: gopass_configuration
+
+- name: Check gopass configuration
+  ansible.builtin.lineinfile:
+    dest: "{{ bin_gopass_config_file }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^autoclip:\\s*(false|true)\\s*$"
+      line: "autoclip: false"
+    - regexp: "^autoimport:\\s*(false|true)\\s*$"
+      line: "autoimport: true"
+    - regexp: "^cliptimeout:\\s*[0-9]+\\s*$"
+      line: "cliptimeout: 60"
+    - regexp: "^exportkeys:\\s*(false|true)\\s*$"
+      line: "exportkeys: true"
+    - regexp: "^nopager:\\s*(false|true)\\s*$"
+      line: "nopager: true"
+    - regexp: "^notifications:\\s*(false|true)\\s*$"
+      line: "notifications: false"
+    - regexp: "^parsing:\\s*(false|true)\\s*$"
+      line: "parsing: false"
+    - regexp: "^safecontent:\\s*(false|true)\\s*$"
+      line: "safecontent: true"
+  when: gopass_configuration.stat.exists
+
+...
