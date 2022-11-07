@@ -37,4 +37,16 @@ tasks:
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} --tag user_packages {{.PLAYBOOK}}
 
+  lint:
+    desc: Lint the playbook with Molecule
+    cmds:
+      - molecule lint
+
+  molecule:
+    desc: Test the playbook with Molecule
+    cmds:
+      # - molecule --debug converge
+      # - molecule --debug idempotence
+      - molecule test
+
 ...
