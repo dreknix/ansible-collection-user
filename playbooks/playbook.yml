@@ -5,7 +5,7 @@
 #
 
 - name: Setup local user
-  hosts: '{{ targets | default("all") }}'
+  hosts: '{{ target | default("all") }}'
   gather_facts: true
 
   roles:
