@@ -14,35 +14,43 @@ tasks:
     cmds:
       - ./scripts/check_versions.py
 
-  check:
+  lint:
     desc: Check syntax of the playbook
     cmds:
+      - yamllint .
       - ansible-playbook {{.EXTRA_VARS}} --syntax-check {{.PLAYBOOK}}
+      - ansible-lint --profile production
 
   run:
     desc: Run playbook {{.PLAYBOOK}}
-    deps: [check]
+    deps: [lint]
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} {{.PLAYBOOK}}
 
+  run:check:
+    desc: Run playbook {{.PLAYBOOK}} in check mode
+    deps: [lint]
+    cmds:
+      - ansible-playbook --check {{.EXTRA_VARS}} {{.PLAYBOOK}}
+
   run:bin:
     desc: Run {{.PLAYBOOK}} with tag bin
-    deps: [check]
+    deps: [lint]
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} --tag user_bin {{.PLAYBOOK}}
 
   run:packages:
     desc: Run {{.PLAYBOOK}} with tag packages
-    deps: [check]
+    deps: [lint]
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} --tag user_packages {{.PLAYBOOK}}
 
-  lint:
+  molecule:lint:
     desc: Lint the playbook with Molecule
     cmds:
       - molecule lint
 
-  molecule:
+  molecule:test:
     desc: Test the playbook with Molecule
     cmds:
       # - molecule --debug converge

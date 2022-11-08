@@ -9,6 +9,7 @@
   ansible.builtin.shell: |
     {{ bin_gopass_jsonapi_bin_path }} --version
   register: bin_gopass_jsonapi_version_check
+  check_mode: false
   when: >
     bin_gopass_jsonapi_binary.stat.exists
     and bin_gopass_jsonapi_binary.stat.executable

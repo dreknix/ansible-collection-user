@@ -31,6 +31,7 @@
     src: "{{ bin_restic_tmp_path }}"
     dest: "{{ bin_restic_bin_path }}"
     mode: 0755
+  when: not ansible_check_mode
 
 - name: Remove downloaded file
   ansible.builtin.file:

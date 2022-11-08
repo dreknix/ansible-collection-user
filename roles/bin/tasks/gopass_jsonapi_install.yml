@@ -23,6 +23,7 @@
     src: "{{ bin_gopass_jsonapi_tmp_path }}/gopass-jsonapi"
     dest: "{{ bin_gopass_jsonapi_bin_path }}"
     mode: 0755
+  when: not ansible_check_mode
 
 - name: Remove downloaded target directory
   ansible.builtin.file:

@@ -9,6 +9,7 @@
   ansible.builtin.shell: |
     {{ bin_hadolint_bin_path }} --version
   register: bin_hadolint_version_check
+  check_mode: false
   when: >
     bin_hadolint_binary.stat.exists
     and bin_hadolint_binary.stat.executable

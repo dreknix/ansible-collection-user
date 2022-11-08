@@ -33,6 +33,7 @@
     src: "{{ bin_gopass_tmp_path }}/gopass"
     dest: "{{ bin_gopass_bin_path }}"
     mode: 0755
+  when: not ansible_check_mode
 
 - name: Move gopass bash completion into place
   ansible.builtin.copy:
@@ -40,6 +41,7 @@
     src: "{{ bin_gopass_tmp_path }}/bash.completion"
     dest: "{{ user_bin_bash_completion_path }}/gopass.sh"
     mode: 0644
+  when: not ansible_check_mode
 
 - name: Remove downloaded target directory
   ansible.builtin.file:

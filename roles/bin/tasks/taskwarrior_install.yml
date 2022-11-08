@@ -43,6 +43,7 @@
     src: "{{ bin_taskwarrior_tmp_path }}/src/task"
     dest: "{{ bin_taskwarrior_bin_path }}"
     mode: 0755
+  when: not ansible_check_mode
 
 - name: Move taskwarrior bash completion into place
   ansible.builtin.copy:
@@ -55,6 +56,7 @@
       dest: "{{ user_bin_bash_completion_path }}/taskwarrior.sh"
     - src: "{{ bin_taskwarrior_tmp_path }}/scripts/bash/t.sh"
       dest: "{{ user_bin_bash_completion_path }}/t.sh"
+  when: not ansible_check_mode
 
 - name: Remove downloaded target directory
   ansible.builtin.file:

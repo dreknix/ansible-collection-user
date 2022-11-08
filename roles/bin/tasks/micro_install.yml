@@ -17,6 +17,7 @@
     src: "{{ bin_micro_tmp_path }}/micro"
     dest: "{{ bin_micro_bin_path }}"
     mode: 0755
+  when: not ansible_check_mode
 
 - name: Remove downloaded target directory
   ansible.builtin.file:

@@ -9,6 +9,7 @@
   ansible.builtin.shell: |
     {{ bin_restic_bin_path }} version
   register: bin_restic_version_check
+  check_mode: false
   when: >
     bin_restic_binary.stat.exists
     and bin_restic_binary.stat.executable

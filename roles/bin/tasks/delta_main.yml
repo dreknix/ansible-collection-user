@@ -5,15 +5,11 @@
     path: "{{ bin_delta_bin_path }}"
   register: bin_delta_binary
 
-# - name: Debug Variables
-#   ansible.builtin.debug:
-#     msg:
-#       - "delta binary exists {{ bin_delta_binary.stat }}"
-
 - name: Check which version of delta is installed
   ansible.builtin.shell: |
     {{ bin_delta_bin_path }} --version
   register: bin_delta_version_check
+  check_mode: false
   when: bin_delta_binary.stat.exists and bin_delta_binary.stat.executable
   changed_when: false
 
