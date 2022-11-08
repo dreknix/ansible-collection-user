@@ -9,12 +9,14 @@
     src: "{{ bin_delta_url }}"
     dest: "/tmp"
     mode: 0755
+    remote_src: true
 
 - name: Move delta binary into place
   ansible.builtin.copy:
     src: "{{ bin_delta_tmp_path }}/delta"
     dest: "{{ bin_delta_bin_path }}"
     mode: 0755
+    remote_src: true
   when: not ansible_check_mode
 
 - name: Download delta bash completion into place
