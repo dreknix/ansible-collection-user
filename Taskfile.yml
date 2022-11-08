@@ -21,17 +21,23 @@ tasks:
       - ansible-playbook {{.EXTRA_VARS}} --syntax-check {{.PLAYBOOK}}
       - ansible-lint --profile production
 
+  check:
+    desc: Run playbook {{.PLAYBOOK}} in check mode
+    deps: [lint]
+    cmds:
+      - ansible-playbook --check {{.EXTRA_VARS}} {{.PLAYBOOK}}
+
+  diff:
+    desc: Run playbook {{.PLAYBOOK}} in check and diff mode
+    deps: [lint]
+    cmds:
+      - ansible-playbook --check --diff {{.EXTRA_VARS}} {{.PLAYBOOK}}
+
   run:
     desc: Run playbook {{.PLAYBOOK}}
     deps: [lint]
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} {{.PLAYBOOK}}
-
-  run:check:
-    desc: Run playbook {{.PLAYBOOK}} in check mode
-    deps: [lint]
-    cmds:
-      - ansible-playbook --check {{.EXTRA_VARS}} {{.PLAYBOOK}}
 
   run:bin:
     desc: Run {{.PLAYBOOK}} with tag bin
