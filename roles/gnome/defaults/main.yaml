@@ -1,0 +1,28 @@
+---
+
+user_gnome_background_uri: >-
+  file:///{{ xdg_data_home }}/backgrounds/robbie.jpg
+
+user_gnome_font_name: Hack
+
+user_gnome_font_size: >-
+  {{ '10' if ansible_hostname == 'h3a-wks-zahl' else '11' }}
+
+user_gnome_nerdfont_uri: >-
+  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts
+
+user_gnome_font_path: >-
+  {{ xdg_data_home }}/fonts/
+
+gnome_terminal_uuid: 08c53e25-37ae-4b9e-9d11-67bc5b516bd5
+
+gnome_terminal_uuid_list: >-
+  [ '{{ gnome_terminal_uuid }}' ]
+
+gnome_terminal_base_path: >-
+  /org/gnome/terminal/legacy
+
+gnome_terminal_profile_path: >-
+  {{ gnome_terminal_base_path }}/profiles:/:{{ gnome_terminal_uuid }}
+
+...

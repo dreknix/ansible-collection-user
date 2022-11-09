@@ -1,0 +1,243 @@
+---
+
+# Configure GNOME
+#
+# Attention: Strings must be encoded with "'string'"
+#
+
+- name: Update apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+  when: ansible_os_family == "Debian"
+
+- name: Install packages python3-psutil, dconf-cli and fontconfig
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python3-psutil
+    - dbus
+    - dconf-service
+    - dconf-cli
+    - fontconfig
+
+- name: Create font directory
+  ansible.builtin.file:
+    path: "{{ user_gnome_font_path }}"
+    state: directory
+    mode: 0755
+
+- name: Download nerd-font {{ user_gnome_font_name }}
+  ansible.builtin.get_url:
+    url: "{{ user_gnome_nerdfont_uri }}/{{ item | urlencode() }}"
+    dest: "{{ user_gnome_font_path }}/{{ item | basename }}"
+    mode: 0644
+  with_items:
+    - "Hack/Bold/complete/Hack Bold Nerd Font Complete Mono.ttf"
+    - "Hack/Bold/complete/Hack Bold Nerd Font Complete.ttf"
+    - "Hack/BoldItalic/complete/Hack Bold Italic Nerd Font Complete Mono.ttf"
+    - "Hack/BoldItalic/complete/Hack Bold Italic Nerd Font Complete.ttf"
+    - "Hack/Italic/complete/Hack Italic Nerd Font Complete Mono.ttf"
+    - "Hack/Italic/complete/Hack Italic Nerd Font Complete.ttf"
+    - "Hack/Regular/complete/Hack Regular Nerd Font Complete Mono.ttf"
+    - "Hack/Regular/complete/Hack Regular Nerd Font Complete.ttf"
+  register: user_gnome_font_install
+
+- name: Update font cache (fc-cache)
+  ansible.builtin.command: fc-cache -f -v
+  when: user_gnome_font_install.results | select("changed") | length > 0
+
+- name: Ansible check background picture exists.
+  ansible.builtin.stat:
+    path: "'{{ user_gnome_background_uri }}'"
+  register: background_picture
+
+- name: Configure background image
+  community.general.system.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "/org/gnome/desktop/background/picture-uri"
+      value: "'{{ user_gnome_background_uri }}'"
+    - key: "/org/gnome/desktop/screensaver/picture-uri"
+      value: "'{{ user_gnome_background_uri }}'"
+  when: background_picture.stat.exists
+
+- name: Configure GNOME Desktop WM
+  community.general.system.dconf:
+    key: "/org/gnome/desktop/wm/preferences/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "focus-mode"
+      value: "'sloppy'"
+    - key: "auto-raise"
+      value: "false"
+    - key: "raise-on-click"
+      value: "true"
+    - key: "audible-bell"
+      value: "false"
+    - key: "visual-bell"
+      value: "false"
+    - key: "num-workspaces"
+      value: "4"
+    - key: "button-layout"
+      value: "'appmenu:minimize,maximize,close'"
+    - key: "titlebar-uses-system-font"
+      value: "true"
+
+- name: Configure GNOME Desktop Interface
+  community.general.system.dconf:
+    key: "/org/gnome/desktop/interface/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "font-name"
+      value: "'{{ user_gnome_font_name }} Nerd Font {{ user_gnome_font_size }}'"
+    - key: "document-font-name"
+      value: "'{{ user_gnome_font_name }} Nerd Font {{ user_gnome_font_size }}'"
+    - key: "monospace-font-name"
+      value: "'{{ user_gnome_font_name }} Nerd Font {{ user_gnome_font_size }}'"
+    - key: "clock-format"
+      value: "'24h'"
+    - key: "clock-show-seconds"
+      value: "true"
+    - key: "clock-show-date"
+      value: "true"
+    - key: "clock-show-weekday"
+      value: "true"
+    - key: "show-battery-percentage"
+      value: "true"
+
+- name: Configure GNOME Dock
+  community.general.system.dconf:
+    key: "/org/gnome/shell/extension/dash-to-dock/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "background-opacity"
+      value: "1.0"
+    - key: "transparency-mode"
+      value: "'FIXED'"
+
+- name: Configure GNOME Desktop Calender
+  community.general.system.dconf:
+    key: "/org/gnome/desktop/calender/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "show-weekdate"
+      value: "true"
+
+# based on: https://github.com/aarowill/base16-gnome-terminal/blob/master/color-scripts/base16-tomorrow-night-256.sh
+- name: Configure GNOME Terminal (tomorrow-night theme)
+  community.general.system.dconf:
+    key: "{{ gnome_terminal_profile_path }}/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "visible-name"
+      value: "'Ansible Controlled Profile'"
+    - key: "use-system-font"
+      value: "true"
+    - key: palette
+      value: "['#1d1f21', '#cc6666', '#b5bd68', '#f0c674', '#81a2be', '#b294bb', \
+               '#8abeb7', '#c5c8c6', '#969896', '#cc6666', '#b5bd68', '#f0c674', \
+                '#81a2be', '#b294bb', '#8abeb7', '#ffffff']"
+    - key: background-color
+      value: "'#1d1f21'"
+    - key: foreground-color
+      value: "'#c5c8c6'"
+    - key: bold-color
+      value: "'#c5c8c6'"
+    - key: bold-color-same-as-fg
+      value: "true"
+    - key: cursor-colors-set
+      value: "true"
+    - key: cursor-background-color
+      value: "'#c5c8c6'"
+    - key: cursor-foreground-color
+      value: "'#1d1f21'"
+    - key: use-theme-colors
+      value: "false"
+    - key: use-theme-background
+      value: "false"
+
+- name: Get GNOME Terminal profiles
+  community.general.system.dconf:
+    key: "{{ gnome_terminal_base_path }}/profiles:/list"
+    state: read
+  register: gnome_terminal_list
+
+- name: Convert profiles list into dictionary
+  ansible.builtin.set_fact:
+    base_list: >-
+      [ '{{ gnome_terminal_list.value[2:-2] }}' ]
+  when: gnome_terminal_list.value
+
+- name: Set GNOME Terminal profiles
+  community.general.system.dconf:
+    key: "{{ gnome_terminal_base_path }}/profiles:/list"
+    value: "{{ base_list + gnome_terminal_uuid_list }}"
+    state: present
+  when: gnome_terminal_list.value and gnome_terminal_uuid not in base_list
+
+- name: Set GNOME Terminal profiles
+  community.general.system.dconf:
+    key: "{{ gnome_terminal_base_path }}/profiles:/list"
+    value: "{{ gnome_terminal_uuid_list }}"
+    state: present
+  when: not gnome_terminal_list.value
+
+- name: Set GNOME Terminal default profile
+  community.general.system.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/default"
+    value: "'{{ gnome_terminal_uuid }}'"
+    state: present
+
+- name: Configure Nautilus
+  community.general.system.dconf:
+    key: "/org/gnome/nautilus/preferences/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "default-folder-view"
+      value: "'list-view'"
+
+- name: Configure Evince
+  community.general.system.dconf:
+    key: "/org/gnome/Evince/Defaut/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "continuous"
+      value: "false"
+    - key: "show-sidebar"
+      value: "false"
+    - key: "sizing-mode"
+      value: "'fit-page'"
+
+- name: Configure gedit
+  community.general.system.dconf:
+    key: "/org/gnome/gedit/preferences/editor/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "display-line-numbers"
+      value: "true"
+    - key: "auto-indent"
+      value: "true"
+    - key: "highlight-current-line"
+      value: "true"
+    - key: "use-default-font"
+      value: "true"
+    - key: "scheme"
+      value: "'tomorrownight'"
+    - key: "tabs-size"
+      value: "2"
+
+...

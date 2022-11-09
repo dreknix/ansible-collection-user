@@ -20,4 +20,9 @@
         - user
         - user_packages
 
+    - role: dreknix.user.gnome
+      tags:
+        - user
+        - user_gnome
+
 ...
