@@ -1,0 +1,7 @@
+---
+
+tmux_tpm_github: "https://github.com/tmux-plugins/tpm"
+
+tmux_tpm_home: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+
+...

@@ -51,6 +51,12 @@ tasks:
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} --tag user_packages {{.PLAYBOOK}}
 
+  run:tmux:
+    desc: Run {{.PLAYBOOK}} with tag tmux
+    deps: [lint]
+    cmds:
+      - ansible-playbook {{.EXTRA_VARS}} --tag user_tmux {{.PLAYBOOK}}
+
   run:gnome:
     desc: Run {{.PLAYBOOK}} with tag gnome
     deps: [lint]

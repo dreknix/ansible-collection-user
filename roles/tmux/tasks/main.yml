@@ -1,0 +1,24 @@
+---
+
+- name: Update apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+  when: ansible_os_family == "Debian"
+
+- name: Install packages git, tmux
+  become: true
+  ansible.builtin.package:
+    name:
+      - git
+      - tmux
+    state: present
+
+- name: Install tmux plugin manager (tpm)  # noqa git-latest
+  ansible.builtin.git:
+    repo: "{{ tmux_tpm_github }}"
+    dest: "{{ tmux_tpm_home }}"
+  notify: Install tmux plugin manager
+
+...

@@ -25,4 +25,9 @@
         - user
         - user_gnome
 
+    - role: dreknix.user.tmux
+      tags:
+        - user
+        - user_tmux
+
 ...
