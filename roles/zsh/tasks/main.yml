@@ -15,7 +15,7 @@
       - zsh
     state: present
 
-- name: Install zinit plugin manager  # noqa git-latest
+- name: Install zinit plugin manager  # noqa latest[git]
   ansible.builtin.git:
     repo: "{{ zsh_zinit_github }}"
     dest: "{{ zsh_zinit_home }}"

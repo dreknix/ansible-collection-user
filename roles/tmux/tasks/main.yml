@@ -15,7 +15,7 @@
       - tmux
     state: present
 
-- name: Install tmux plugin manager (tpm)  # noqa git-latest
+- name: Install tmux plugin manager (tpm)  # noqa latest[git]
   ansible.builtin.git:
     repo: "{{ tmux_tpm_github }}"
     dest: "{{ tmux_tpm_home }}"

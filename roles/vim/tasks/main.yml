@@ -15,7 +15,7 @@
       - vim
     state: present
 
-- name: Install Vundle Vim plugin manager  # noqa git-latest
+- name: Install Vundle Vim plugin manager  # noqa latest[git]
   ansible.builtin.git:
     repo: "{{ vim_vundle_github }}"
     dest: "{{ vim_vundle_home }}"
