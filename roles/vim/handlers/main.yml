@@ -1,0 +1,8 @@
+---
+
+- name: Install Vim plugins
+  ansible.builtin.shell: >
+    echo -ne "\n" | vim -E -s -c "source {{ vimrc }}" +PluginInstall +qall
+  failed_when: false
+
+...

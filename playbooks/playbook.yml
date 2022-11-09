@@ -30,4 +30,9 @@
         - user
         - user_tmux
 
+    - role: dreknix.user.vim
+      tags:
+        - user
+        - user_vim
+
 ...

@@ -1,0 +1,24 @@
+---
+
+- name: Update apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+  when: ansible_os_family == "Debian"
+
+- name: Install packages git, vim
+  become: true
+  ansible.builtin.package:
+    name:
+      - git
+      - vim
+    state: present
+
+- name: Install Vundle Vim plugin manager  # noqa git-latest
+  ansible.builtin.git:
+    repo: "{{ vim_vundle_github }}"
+    dest: "{{ vim_vundle_home }}"
+  notify: Install Vim plugins
+
+...

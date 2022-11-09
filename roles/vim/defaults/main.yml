@@ -1,0 +1,9 @@
+---
+
+vim_vundle_github: "https://github.com/VundleVim/Vundle.vim.git"
+
+vim_vundle_home: "{{ ansible_env.HOME }}/.vim/bundle/Vundle.vim"
+
+vimrc: "{{ ansible_env.HOME }}/.vimrc"
+
+...
