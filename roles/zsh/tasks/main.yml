@@ -1,0 +1,26 @@
+---
+
+- name: Update apt
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
+  when: ansible_os_family == "Debian"
+
+- name: Install packages git, zsh
+  become: true
+  ansible.builtin.package:
+    name:
+      - git
+      - zsh
+    state: present
+
+- name: Install zinit plugin manager  # noqa git-latest
+  ansible.builtin.git:
+    repo: "{{ zsh_zinit_github }}"
+    dest: "{{ zsh_zinit_home }}"
+  notify:
+    - Check if zshrc exists
+    - Install zsh plugins
+
+...

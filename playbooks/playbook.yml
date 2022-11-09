@@ -35,4 +35,9 @@
         - user
         - user_vim
 
+    - role: dreknix.user.zsh
+      tags:
+        - user
+        - user_zsh
+
 ...

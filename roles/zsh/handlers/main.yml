@@ -1,0 +1,13 @@
+---
+
+- name: Check if zshrc exists
+  ansible.builtin.stat:
+    path: "{{ zshrc }}"
+  register: zsh_config
+
+- name: Install zsh plugins
+  ansible.builtin.shell: >
+    zsh -i -c "zinit self-update"
+  when: zsh_config.stat.exists
+
+...

@@ -51,6 +51,12 @@ tasks:
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} --tag user_packages {{.PLAYBOOK}}
 
+  run:gnome:
+    desc: Run {{.PLAYBOOK}} with tag gnome
+    deps: [lint]
+    cmds:
+      - ansible-playbook {{.EXTRA_VARS}} --tag user_gnome {{.PLAYBOOK}}
+
   run:tmux:
     desc: Run {{.PLAYBOOK}} with tag tmux
     deps: [lint]
@@ -63,11 +69,11 @@ tasks:
     cmds:
       - ansible-playbook {{.EXTRA_VARS}} --tag user_vim {{.PLAYBOOK}}
 
-  run:gnome:
-    desc: Run {{.PLAYBOOK}} with tag gnome
+  run:zsh:
+    desc: Run {{.PLAYBOOK}} with tag zsh
     deps: [lint]
     cmds:
-      - ansible-playbook {{.EXTRA_VARS}} --tag user_gnome {{.PLAYBOOK}}
+      - ansible-playbook {{.EXTRA_VARS}} --tag user_zsh {{.PLAYBOOK}}
 
   molecule:lint:
     desc: Lint the playbook with Molecule
