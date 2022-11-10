@@ -6,7 +6,7 @@ version = 0.14.0
 [gopass]
 source  = github
 name    = gopasspw/gopass
-version = 1.14.9
+version = 1.14.10
 
 [gopass-jsonapi]
 source  = github
@@ -16,7 +16,7 @@ version = 1.14.9
 [hadolint]
 source  = github
 name    = hadolint/hadolint
-version = 2.10.0
+version = 2.12.0
 
 [micro]
 source  = github
