@@ -24,7 +24,10 @@
       - bash-completion
       - bat
       - bc
+      - bitwise
       - bibclean
+      - btop
+      - cgdb
       - chktex
       - clang
       - clang-format
@@ -36,7 +39,10 @@
       - direnv
       - dnsutils
       - dos2unix
+      - duf
       - ethtool
+      - fasd
+      - fd-find
       - feh
       - flake8
       - fzf
@@ -63,6 +69,7 @@
       - manpages-dev
       - mlocate
       - most
+      - multitail
       - netcat-openbsd
       - neofetch
       - newsboat
@@ -72,12 +79,14 @@
       - octave
       - openssh-client
       - patat
+      - peco
       - pdftk
       - python3
       - python3-pip
       - python3-wheel
       - python3-venv
       - pwgen
+      - ripgrep
       - rofi
       - shellcheck
       - silversearcher-ag
