@@ -91,6 +91,8 @@
       - shellcheck
       - silversearcher-ag
       - sshpass
+      - stress
+      - s-tui
       - subversion
       - taskwarrior
       - tig
