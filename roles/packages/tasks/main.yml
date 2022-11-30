@@ -78,6 +78,7 @@
       - nnn
       - octave
       - openssh-client
+      - p7zip-full
       - patat
       - peco
       - pdftk
