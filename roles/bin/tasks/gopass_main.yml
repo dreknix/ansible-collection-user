@@ -37,22 +37,30 @@
     line: "{{ item.line }}"
     state: present
   with_items:
-    - regexp: "^autoclip:\\s*(false|true)\\s*$"
-      line: "autoclip: false"
-    - regexp: "^autoimport:\\s*(false|true)\\s*$"
-      line: "autoimport: true"
-    - regexp: "^cliptimeout:\\s*[0-9]+\\s*$"
-      line: "cliptimeout: 60"
-    - regexp: "^exportkeys:\\s*(false|true)\\s*$"
-      line: "exportkeys: true"
-    - regexp: "^nopager:\\s*(false|true)\\s*$"
-      line: "nopager: true"
-    - regexp: "^notifications:\\s*(false|true)\\s*$"
-      line: "notifications: false"
-    - regexp: "^parsing:\\s*(false|true)\\s*$"
-      line: "parsing: false"
-    - regexp: "^safecontent:\\s*(false|true)\\s*$"
-      line: "safecontent: true"
+    - regexp: "^\\tautoclip\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tautoclip = false"
+    - regexp: "^\\tautoimport\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tautoimport = true"
+    - regexp: "^\\tcliptimeout\\s*=\\s*[0-9]+\\s*$"
+      # noqa: no-tabs
+      line: "\tcliptimeout = 60"
+    - regexp: "^\\texportkeys\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\texportkeys = true"
+    - regexp: "^\\tnopager\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tnopager = true"
+    - regexp: "^\\tnotifications\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tnotifications = false"
+    - regexp: "^\\tparsing\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tparsing = false"
+    - regexp: "^\\tshowsafecontent\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tshowsafecontent = true"
   when: gopass_configuration.stat.exists
 
 ...
