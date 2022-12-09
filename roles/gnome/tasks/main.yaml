@@ -268,6 +268,8 @@
       value: "false"
     - key: "general/restore-tabs-startup"
       value: "false"
+    - key: "general/start-at-login"
+      value: "true"
     - key: "general/save-tabs-when-changed"
       value: "false"
     - key: "general/use-default-font"
