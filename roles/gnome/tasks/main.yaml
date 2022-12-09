@@ -240,4 +240,77 @@
     - key: "tabs-size"
       value: "2"
 
+- name: Install drop-down terminal guake
+  become: true
+  ansible.builtin.package:
+    name: guake
+    state: present
+
+- name: Enable guake autostrart
+  ansible.builtin.copy:
+    src: "guake.desktop"
+    dest: "{{ local_xdg_config_home }}/autostart/guake.desktop"
+    mode: 0644
+
+- name: Configure Evince
+  community.general.system.dconf:
+    key: "/apps/guake/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "general/copy-on-select"
+      value: "true"
+    - key: "general/default-shell"
+      value: "'/usr/bin/tmux'"
+    - key: "general/prompt-on-quit"
+      value: "false"
+    - key: "general/restore-tabs-notify"
+      value: "false"
+    - key: "general/restore-tabs-startup"
+      value: "false"
+    - key: "general/save-tabs-when-changed"
+      value: "false"
+    - key: "general/use-default-font"
+      value: "false"
+    - key: "general/use-popup"
+      value: "false"
+    - key: "general/use-trayicon"
+      value: "false"
+    - key: "general/use-vte-titles"
+      value: "false"
+    - key: "general/window-height"
+      value: "65"
+    - key: "general/window-losefocus"
+      value: "true"
+    - key: "general/window-tabbar"
+      value: "false"
+    - key: "general/window-width"
+      value: "91"
+    - key: "style/background/transparency"
+      value: "100"
+    - key: "style/font/palette"
+      value: "'\
+              #000000000000:\
+              #CCCC66666666:\
+              #B5B5BDBD6868:\
+              #F0F0C6C67474:\
+              #8181A2A2BEBE:\
+              #B2B29393BBBB:\
+              #8A8ABEBEB7B7:\
+              #FFFFFEFEFEFE:\
+              #000000000000:\
+              #CCCC66666666:\
+              #B5B5BDBD6868:\
+              #F0F0C5C57474:\
+              #8080A1A1BDBD:\
+              #B2B29494BABA:\
+              #8A8ABDBDB6B6:\
+              #FFFFFEFEFEFE:\
+              #C5C5C8C8C6C6:\
+              #1D1D1F1F2121'"
+    - key: "style/font/palette-name"
+      value: "'Tomorrow Night'"
+    - key: "style/font/style"
+      value: "'Hack Nerd Font Mono 10'"
+
 ...
