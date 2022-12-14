@@ -1,0 +1,33 @@
+---
+
+- name: Set GitHub repository name
+  ansible.builtin.set_fact:
+    github_repo_name: "{{ bin_superpet_github_repo_name }}"
+
+- name: Create download target directory
+  ansible.builtin.file:
+    path: "{{ bin_superpet_tmp_path }}"
+    state: directory
+    mode: 0755
+
+- name: Download and unarchive superpet into temporary location
+  ansible.builtin.unarchive:
+    src: "{{ bin_superpet_url }}"
+    dest: "{{ bin_superpet_tmp_path }}"
+    mode: 0755
+    remote_src: true
+
+- name: Move superpet binary into place
+  ansible.builtin.copy:
+    src: "{{ bin_superpet_tmp_path }}/superpet"
+    dest: "{{ bin_superpet_bin_path }}"
+    mode: 0755
+    remote_src: true
+  when: not ansible_check_mode
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_superpet_tmp_path }}"
+    state: absent
+
+...

@@ -43,6 +43,10 @@
   ansible.builtin.import_tasks: micro_main.yml
   tags: user_bin_micro
 
+- name: Include task for installing superpet
+  ansible.builtin.import_tasks: superpet_main.yml
+  tags: user_bin_superpet
+
 - name: Include task for installing restic
   ansible.builtin.import_tasks: restic_main.yml
   tags: user_bin_restic
