@@ -47,6 +47,10 @@
   ansible.builtin.import_tasks: micro_main.yml
   tags: user_bin_micro
 
+- name: Include task for installing minikube
+  ansible.builtin.import_tasks: minikube_main.yml
+  tags: user_bin_minikube
+
 - name: Include task for installing superpet
   ansible.builtin.import_tasks: superpet_main.yml
   tags: user_bin_superpet

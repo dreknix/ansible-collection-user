@@ -27,6 +27,11 @@ source  = github
 name    = zyedidia/micro
 version = 2.0.11
 
+[minikube]
+source  = github
+name    = kubernetes/minikube
+version = 1.29.0
+
 [superpet]
 source  = github
 name    = RamiAwar/superpet

@@ -9,9 +9,10 @@ versions = configparser.ConfigParser()
 versions.read("playbooks/files/tools.cnf")
 
 for section in versions.sections():
+    version = versions.get(section, 'version')
+
     if (versions.get(section, 'source') == "github"):
         name = versions.get(section, 'name')
-        version = versions.get(section, 'version')
         try:
             response = requests.get("https://api.github.com/repos/" + name + "/releases/latest")
             response.raise_for_status()
@@ -27,5 +28,7 @@ for section in versions.sections():
             print("\033[91m" + name + " " + version + " != " + latest + "\033[0m")
         else:
             print("\033[92m" + name + " " + version + "\033[0m")
+    elif (versions.get(section, 'source') == "misc"):
+        print("\033[93m" + section + " " + version + " ignoring\033[0m")
     else:
         print("Unknown source: " + versions.get(section, 'source'))

@@ -1,0 +1,39 @@
+---
+
+- name: Create temporary directory
+  ansible.builtin.file:
+    path: "{{ bin_minikube_tmp_path }}"
+    mode: 0755
+    state: directory
+
+- name: Download minikube into temporary location
+  ansible.builtin.get_url:
+    url: "{{ bin_minikube_url }}"
+    dest: "{{ bin_minikube_tmp_path }}/minikube"
+    mode: 0755
+
+- name: Move minikube binary into place
+  ansible.builtin.copy:
+    src: "{{ bin_minikube_tmp_path }}/minikube"
+    dest: "{{ bin_minikube_bin_path }}"
+    mode: 0755
+    remote_src: true
+  when: not ansible_check_mode
+
+- name: Delete old minikube bash completion
+  ansible.builtin.file:
+    path: "{{ user_bin_bash_completion_path }}/minikube.sh"
+    state: absent
+
+- name: Create minikube bash completion
+  ansible.builtin.shell:
+    cmd: "{{ bin_minikube_bin_path }} completion bash > {{ user_bin_bash_completion_path }}/minikube.sh"
+    creates: "{{ user_bin_bash_completion_path }}/minikube.sh"
+  when: not ansible_check_mode
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_minikube_tmp_path }}"
+    state: absent
+
+...

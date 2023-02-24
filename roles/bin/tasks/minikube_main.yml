@@ -1,0 +1,26 @@
+---
+
+- name: Check if minikube is installed
+  ansible.builtin.stat:
+    path: "{{ bin_minikube_bin_path }}"
+  register: bin_minikube_binary
+
+- name: Check which version of minikube is installed
+  ansible.builtin.shell: |
+    {{ bin_minikube_bin_path }} version
+  register: bin_minikube_version_check
+  check_mode: false
+  when: bin_minikube_binary.stat.exists and bin_minikube_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of minikube
+  ansible.builtin.include_tasks: minikube_install.yml
+  vars:
+    bin_minikube_version_string: "minikube version: v{{ bin_minikube_version }}"
+  when: >
+    not (bin_minikube_binary.stat.exists and bin_minikube_binary.stat.executable)
+    or bin_minikube_version_check.stdout is not defined
+    or bin_minikube_version_string not in bin_minikube_version_check.stdout
+    or bin_minikube_force_install | bool
+
+...
