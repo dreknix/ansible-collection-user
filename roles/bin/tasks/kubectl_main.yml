@@ -1,0 +1,26 @@
+---
+
+- name: Check if kubectl is installed
+  ansible.builtin.stat:
+    path: "{{ bin_kubectl_bin_path }}"
+  register: bin_kubectl_binary
+
+- name: Check which version of kubectl is installed
+  ansible.builtin.shell: |
+    {{ bin_kubectl_bin_path }} version --client=true --short
+  register: bin_kubectl_version_check
+  check_mode: false
+  when: bin_kubectl_binary.stat.exists and bin_kubectl_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of kubectl
+  ansible.builtin.include_tasks: kubectl_install.yml
+  vars:
+    bin_kubectl_version_string: "Client Version: v{{ bin_kubectl_version }}"
+  when: >
+    not (bin_kubectl_binary.stat.exists and bin_kubectl_binary.stat.executable)
+    or bin_kubectl_version_check.stdout is not defined
+    or bin_kubectl_version_string not in bin_kubectl_version_check.stdout
+    or bin_kubectl_force_install | bool
+
+...

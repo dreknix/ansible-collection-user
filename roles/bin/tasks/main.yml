@@ -39,6 +39,10 @@
   ansible.builtin.import_tasks: hadolint_main.yml
   tags: user_bin_hadolint
 
+- name: Include task for installing kubectl
+  ansible.builtin.import_tasks: kubectl_main.yml
+  tags: user_bin_kubectl
+
 - name: Include task for installing micro
   ansible.builtin.import_tasks: micro_main.yml
   tags: user_bin_micro

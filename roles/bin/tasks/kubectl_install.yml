@@ -1,0 +1,52 @@
+---
+
+- name: Create temporary directory
+  ansible.builtin.file:
+    path: "{{ bin_kubectl_tmp_path }}"
+    mode: 0755
+    state: directory
+
+- name: Download kubectl into temporary location
+  ansible.builtin.get_url:
+    url: "{{ bin_kubectl_url }}/kubectl"
+    dest: "{{ bin_kubectl_tmp_path }}/kubectl"
+    mode: 0755
+
+- name: Move kubectl binary into place
+  ansible.builtin.copy:
+    src: "{{ bin_kubectl_tmp_path }}/kubectl"
+    dest: "{{ bin_kubectl_bin_path }}"
+    mode: 0755
+    remote_src: true
+  when: not ansible_check_mode
+
+- name: Delete old kubectl bash completion (1/2)
+  ansible.builtin.file:
+    path: "{{ user_bin_bash_completion_path }}/kubectl.sh"
+    state: absent
+
+- name: Delete old kubectl bash completion (2/2)
+  ansible.builtin.file:
+    path: "{{ user_bin_bash_completion_path }}/k.sh"
+    state: absent
+
+- name: Create kubectl bash completion (1/2)
+  ansible.builtin.shell:
+    cmd: "{{ bin_kubectl_bin_path }} completion bash > {{ user_bin_bash_completion_path }}/kubectl.sh"
+    creates: "{{ user_bin_bash_completion_path }}/kubectl.sh"
+  when: not ansible_check_mode
+
+- name: Create kubectl bash completion (2/2)
+  ansible.builtin.shell:
+    cmd: |
+      {{ bin_kubectl_bin_path }} completion bash > {{ user_bin_bash_completion_path }}/k.sh
+      sed -i '/complete -o default /s/ kubectl/ k/g' {{ user_bin_bash_completion_path }}/k.sh
+    creates: "{{ user_bin_bash_completion_path }}/k.sh"
+  when: not ansible_check_mode
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_kubectl_tmp_path }}"
+    state: absent
+
+...

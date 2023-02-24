@@ -18,6 +18,10 @@ source  = github
 name    = hadolint/hadolint
 version = 2.12.0
 
+[kubectl]
+source  = misc
+version = 1.26.1
+
 [micro]
 source  = github
 name    = zyedidia/micro
