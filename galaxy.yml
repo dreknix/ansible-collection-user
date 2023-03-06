@@ -18,7 +18,7 @@ tags: []
 
 dependencies: {}
 
-repository: https://github.com/dreknix/ansible-collections-user
+repository: https://github.com/dreknix/ansible-collection-user
 
 build_ignore: []
 
