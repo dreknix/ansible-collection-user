@@ -1,5 +1,4 @@
 ---
-
 namespace: dreknix
 name: user
 version: 1.0.0
@@ -14,12 +13,12 @@ description: Bunch of Ansible roles for user setup
 license:
   - MIT
 
-tags: []
+tags:
+  - linux
 
 dependencies: {}
 
 repository: https://github.com/dreknix/ansible-collection-user
 
 build_ignore: []
-
 ...

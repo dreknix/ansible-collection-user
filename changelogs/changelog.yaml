@@ -1,0 +1,8 @@
+---
+
+ancestor: null
+releases:
+  1.0.0:
+    changes:
+      release_summary: First working copy
+...

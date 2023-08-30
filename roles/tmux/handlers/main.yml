@@ -3,6 +3,6 @@
 - name: Install tmux plugin manager
   ansible.builtin.shell: >
     {{ tmux_tpm_home }}/bin/install_plugins
-  failed_when: false
+  changed_when: false
 
 ...

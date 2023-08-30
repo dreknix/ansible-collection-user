@@ -9,5 +9,6 @@
   ansible.builtin.shell: >
     zsh -i -c "zinit self-update"
   when: zsh_config.stat.exists
+  changed_when: false
 
 ...
