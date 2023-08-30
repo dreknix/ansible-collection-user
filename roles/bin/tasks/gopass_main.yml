@@ -60,7 +60,7 @@
       line: "\tparsing = false"
     - regexp: "^\\tshowsafecontent\\s*=\\s*(false|true)\\s*$"
       # noqa: no-tabs
-      line: "\tshowsafecontent = true"
+      line: "\tshowsafecontent = false"
   when: gopass_configuration.stat.exists
 
 ...
