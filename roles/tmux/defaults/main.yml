@@ -2,6 +2,6 @@
 
 tmux_tpm_github: "https://github.com/tmux-plugins/tpm"
 
-tmux_tpm_home: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+tmux_tpm_home: "{{ local_xdg_config_home }}/tmux/plugins/tpm"
 
 ...

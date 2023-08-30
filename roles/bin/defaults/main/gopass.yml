@@ -27,6 +27,6 @@ bin_gopass_tmp_path: >-
   /tmp/gopass_{{ bin_gopass_version }}
 
 bin_gopass_config_file: >-
-  {{ xdg_config_home }}/gopass/config
+  {{ local_xdg_config_home }}/gopass/config
 
 ...
