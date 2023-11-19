@@ -135,7 +135,7 @@
       value: "true"
 
 # based on: https://github.com/aarowill/base16-gnome-terminal/blob/master/color-scripts/base16-tomorrow-night-256.sh
-- name: Configure GNOME Terminal (tomorrow-night theme)
+- name: Configure GNOME Terminal (Catppuccin Mocha)
   community.general.dconf:
     key: "{{ gnome_terminal_profile_path }}/{{ item.key }}"
     value: "{{ item.value | string }}"
@@ -146,23 +146,25 @@
     - key: "use-system-font"
       value: "true"
     - key: palette
-      value: "['#1d1f21', '#cc6666', '#b5bd68', '#f0c674', '#81a2be', '#b294bb', \
-               '#8abeb7', '#c5c8c6', '#969896', '#cc6666', '#b5bd68', '#f0c674', \
-                '#81a2be', '#b294bb', '#8abeb7', '#ffffff']"
+      value: "['#45475a', '#f38ba8', '#a6e3a1', '#f9e2af', '#89b4fa', '#f5c2e7', \
+               '#94e2d5', '#bac2de', '#585b70', '#f38ba8', '#a6e3a1', '#f9e2af', \
+               '#89b4fa', '#f5c2e7', '#94e2d5', '#a6adc8']"
     - key: background-color
-      value: "'#1d1f21'"
+      value: "'#1e1e2e'"
     - key: foreground-color
-      value: "'#c5c8c6'"
-    - key: bold-color
-      value: "'#c5c8c6'"
-    - key: bold-color-same-as-fg
+      value: "'#cdd6f4'"
+    - key: highlight-colors-set
       value: "true"
+    - key: highlight-background-color
+      value: "'#1e1e2e'"
+    - key: highlight-foreground-color
+      value: "'#585b70'"
     - key: cursor-colors-set
       value: "true"
     - key: cursor-background-color
-      value: "'#c5c8c6'"
+      value: "'#f5e0dc'"
     - key: cursor-foreground-color
-      value: "'#1d1f21'"
+      value: "'#1e1e2e'"
     - key: use-theme-colors
       value: "false"
     - key: use-theme-background
