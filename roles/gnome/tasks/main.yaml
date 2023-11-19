@@ -208,6 +208,8 @@
   with_items:
     - key: "default-folder-view"
       value: "'list-view'"
+    - key: "show-hidden-files"
+      value: "true"
 
 - name: Configure Evince
   community.general.dconf:
@@ -240,6 +242,15 @@
       value: "'tomorrownight'"
     - key: "tabs-size"
       value: "2"
+
+- name: Configure gedit filebrowser
+  community.general.dconf:
+    key: "/org/gnome/gedit/plugins/filebrowser/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "filter-mode"
+      value: "['hide-binary']"
 
 - name: Install drop-down terminal guake
   become: true
@@ -315,5 +326,32 @@
       value: "'Tomorrow Night'"
     - key: "style/font/style"
       value: "'Hack Nerd Font Mono 10'"
+
+- name: Configure FileRoller
+  community.general.dconf:
+    key: "/org/gnome/FileRoller/FileSelector/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "show-hidden"
+      value: "true"
+
+- name: Configure GTK settings
+  community.general.dconf:
+    key: "/org/gtk/Settings/FileChooser/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "show-hidden"
+      value: "true"
+
+- name: Configure GTK4 settings
+  community.general.dconf:
+    key: "/org/gtk/gtk4/Settings/FileChooser/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    state: present
+  with_items:
+    - key: "show-hidden"
+      value: "true"
 
 ...
