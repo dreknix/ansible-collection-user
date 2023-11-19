@@ -266,7 +266,7 @@
     dest: "{{ local_xdg_config_home }}/autostart/guake.desktop"
     mode: 0644
 
-- name: Configure Evince
+- name: Configure guake
   community.general.dconf:
     key: "/apps/guake/{{ item.key }}"
     value: "{{ item.value | string }}"
