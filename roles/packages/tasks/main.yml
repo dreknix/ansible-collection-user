@@ -95,7 +95,6 @@
       - stress
       - s-tui
       - subversion
-      - taskwarrior
       - tig
       - tldr
       - tmux
@@ -103,7 +102,7 @@
       - unzip
       - vim
       - vim-scripts
-      - vim-gtk
+      - vim-gtk3
       - wget
       - xclip
       - xkcdpass
