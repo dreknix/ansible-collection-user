@@ -40,9 +40,9 @@
 
 - name: Create restic bash completion
   ansible.builtin.command: >-
-    {{ bin_restic_bin_path }} generate --bash-completion {{ user_bin_bash_completion_path }}/restic.sh
+    {{ bin_restic_bin_path }} generate --bash-completion {{ bin_bash_completion_path }}/restic.sh
   args:
-    creates: "{{ user_bin_bash_completion_path }}/restic.sh"
+    creates: "{{ bin_bash_completion_path }}/restic.sh"
 
 
 ...

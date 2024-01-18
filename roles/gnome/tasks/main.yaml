@@ -26,14 +26,14 @@
 
 - name: Create font directory
   ansible.builtin.file:
-    path: "{{ user_gnome_font_path }}"
+    path: "{{ gnome_font_path }}"
     state: directory
     mode: 0755
 
-- name: Download nerd-font {{ user_gnome_font_name }}
+- name: Download nerd-font {{ gnome_font_name }}
   ansible.builtin.get_url:
-    url: "{{ user_gnome_nerdfont_uri }}/{{ item | urlencode() }}"
-    dest: "{{ user_gnome_font_path }}/{{ item | basename }}"
+    url: "{{ gnome_nerdfont_uri }}/{{ item | urlencode() }}"
+    dest: "{{ gnome_font_path }}/{{ item | basename }}"
     mode: 0644
   with_items:
     - "Hack/Regular/HackNerdFontMono-Regular.ttf"
@@ -44,16 +44,16 @@
     - "Hack/Bold/HackNerdFont-Bold.ttf"
     - "Hack/BoldItalic/HackNerdFontMono-BoldItalic.ttf"
     - "Hack/BoldItalic/HackNerdFont-BoldItalic.ttf"
-  register: user_gnome_font_install
+  register: gnome_font_install
 
 - name: Update font cache (fc-cache)
   ansible.builtin.command: fc-cache -f -v
-  when: user_gnome_font_install.results | select("changed") | length > 0
+  when: gnome_font_install.results | select("changed") | length > 0
   changed_when: false
 
 - name: Ansible check background picture exists.
   ansible.builtin.stat:
-    path: "'{{ user_gnome_background_uri }}'"
+    path: "'{{ gnome_background_uri }}'"
   register: background_picture
 
 - name: Configure background image
@@ -63,9 +63,9 @@
     state: present
   with_items:
     - key: "/org/gnome/desktop/background/picture-uri"
-      value: "'{{ user_gnome_background_uri }}'"
+      value: "'{{ gnome_background_uri }}'"
     - key: "/org/gnome/desktop/screensaver/picture-uri"
-      value: "'{{ user_gnome_background_uri }}'"
+      value: "'{{ gnome_background_uri }}'"
   when: background_picture.stat.exists
 
 - name: Configure GNOME Desktop WM
@@ -98,11 +98,11 @@
     state: present
   with_items:
     - key: "font-name"
-      value: "'{{ user_gnome_font_name }} Nerd Font {{ user_gnome_font_size }}'"
+      value: "'{{ gnome_font_name }} Nerd Font {{ gnome_font_size }}'"
     - key: "document-font-name"
-      value: "'{{ user_gnome_font_name }} Nerd Font {{ user_gnome_font_size }}'"
+      value: "'{{ gnome_font_name }} Nerd Font {{ gnome_font_size }}'"
     - key: "monospace-font-name"
-      value: "'{{ user_gnome_font_name }} Nerd Font {{ user_gnome_font_size }}'"
+      value: "'{{ gnome_font_name }} Nerd Font {{ gnome_font_size }}'"
     - key: "clock-format"
       value: "'24h'"
     - key: "clock-show-seconds"

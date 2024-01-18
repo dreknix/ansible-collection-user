@@ -22,13 +22,13 @@
 
 - name: Delete old minikube bash completion
   ansible.builtin.file:
-    path: "{{ user_bin_bash_completion_path }}/minikube.sh"
+    path: "{{ bin_bash_completion_path }}/minikube.sh"
     state: absent
 
 - name: Create minikube bash completion
   ansible.builtin.shell:
-    cmd: "{{ bin_minikube_bin_path }} completion bash > {{ user_bin_bash_completion_path }}/minikube.sh"
-    creates: "{{ user_bin_bash_completion_path }}/minikube.sh"
+    cmd: "{{ bin_minikube_bin_path }} completion bash > {{ bin_bash_completion_path }}/minikube.sh"
+    creates: "{{ bin_bash_completion_path }}/minikube.sh"
   when: not ansible_check_mode
 
 - name: Remove downloaded target directory

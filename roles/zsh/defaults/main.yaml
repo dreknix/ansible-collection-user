@@ -4,6 +4,6 @@ zsh_zinit_github: "https://github.com/zdharma-continuum/zinit.git"
 
 zsh_zinit_home: "{{ xdg_data_home }}/zinit/zinit.git"
 
-zshrc: "{{ ansible_env.HOME }}/.zshrc"
+zsh_rcfile: "{{ ansible_env.HOME }}/.zshrc"
 
 ...

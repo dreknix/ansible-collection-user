@@ -2,7 +2,7 @@
 
 - name: Check if zshrc exists
   ansible.builtin.stat:
-    path: "{{ zshrc }}"
+    path: "{{ zsh_rcfile }}"
   register: zsh_config
 
 - name: Install zsh plugins

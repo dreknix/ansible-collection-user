@@ -22,26 +22,26 @@
 
 - name: Delete old kubectl bash completion (1/2)
   ansible.builtin.file:
-    path: "{{ user_bin_bash_completion_path }}/kubectl.sh"
+    path: "{{ bin_bash_completion_path }}/kubectl.sh"
     state: absent
 
 - name: Delete old kubectl bash completion (2/2)
   ansible.builtin.file:
-    path: "{{ user_bin_bash_completion_path }}/k.sh"
+    path: "{{ bin_bash_completion_path }}/k.sh"
     state: absent
 
 - name: Create kubectl bash completion (1/2)
   ansible.builtin.shell:
-    cmd: "{{ bin_kubectl_bin_path }} completion bash > {{ user_bin_bash_completion_path }}/kubectl.sh"
-    creates: "{{ user_bin_bash_completion_path }}/kubectl.sh"
+    cmd: "{{ bin_kubectl_bin_path }} completion bash > {{ bin_bash_completion_path }}/kubectl.sh"
+    creates: "{{ bin_bash_completion_path }}/kubectl.sh"
   when: not ansible_check_mode
 
 - name: Create kubectl bash completion (2/2)
   ansible.builtin.shell:
     cmd: |
-      {{ bin_kubectl_bin_path }} completion bash > {{ user_bin_bash_completion_path }}/k.sh
-      sed -i '/complete -o default /s/ kubectl/ k/g' {{ user_bin_bash_completion_path }}/k.sh
-    creates: "{{ user_bin_bash_completion_path }}/k.sh"
+      {{ bin_kubectl_bin_path }} completion bash > {{ bin_bash_completion_path }}/k.sh
+      sed -i '/complete -o default /s/ kubectl/ k/g' {{ bin_bash_completion_path }}/k.sh
+    creates: "{{ bin_bash_completion_path }}/k.sh"
   when: not ansible_check_mode
 
 - name: Remove downloaded target directory

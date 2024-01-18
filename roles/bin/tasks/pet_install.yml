@@ -1,0 +1,33 @@
+---
+
+- name: Set GitHub repository name
+  ansible.builtin.set_fact:
+    github_repo_name: "{{ bin_pet_github_repo_name }}"
+
+- name: Create download target directory
+  ansible.builtin.file:
+    path: "{{ bin_pet_tmp_path }}"
+    state: directory
+    mode: 0755
+
+- name: Download and unarchive pet into temporary location
+  ansible.builtin.unarchive:
+    src: "{{ bin_pet_url }}"
+    dest: "{{ bin_pet_tmp_path }}"
+    mode: 0755
+    remote_src: true
+
+- name: Move pet binary into place
+  ansible.builtin.copy:
+    src: "{{ bin_pet_tmp_path }}/pet"
+    dest: "{{ bin_pet_bin_path }}"
+    mode: 0755
+    remote_src: true
+  when: not ansible_check_mode
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_pet_tmp_path }}"
+    state: absent
+
+...

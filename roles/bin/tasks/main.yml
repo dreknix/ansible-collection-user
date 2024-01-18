@@ -12,7 +12,7 @@
 
 - name: Creates bash completion directory
   ansible.builtin.file:
-    path: "{{ user_bin_bash_completion_path }}"
+    path: "{{ bin_bash_completion_path }}"
     state: directory
     mode: 0755
 
@@ -51,9 +51,9 @@
   ansible.builtin.import_tasks: minikube_main.yml
   tags: user_bin_minikube
 
-- name: Include task for installing superpet
-  ansible.builtin.import_tasks: superpet_main.yml
-  tags: user_bin_superpet
+- name: Include task for installing pet
+  ansible.builtin.import_tasks: pet_main.yml
+  tags: user_bin_pet
 
 - name: Include task for installing restic
   ansible.builtin.import_tasks: restic_main.yml

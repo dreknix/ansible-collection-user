@@ -39,7 +39,7 @@
   ansible.builtin.copy:
     remote_src: true
     src: "{{ bin_gopass_tmp_path }}/bash.completion"
-    dest: "{{ user_bin_bash_completion_path }}/gopass.sh"
+    dest: "{{ bin_bash_completion_path }}/gopass.sh"
     mode: 0644
   when: not ansible_check_mode
 
