@@ -1,0 +1,29 @@
+---
+
+bin_pet_force_install: >-
+  {{ default_bin_force_install | default('false', true) }}
+
+bin_pet_bin_path: >-
+  {{ default_bin_path | default('~/bin', true) }}/pet
+
+bin_pet_version: >-
+  {{ lookup('ini', 'version section=pet file={{ tools_version_file }}') }}
+
+bin_pet_github_repo_name: >-
+  {{ lookup('ini', 'name section=pet file={{ tools_version_file }}') }}
+
+bin_pet_os: >-
+  {{ default_bin_os | default('linux', true) }}
+
+bin_pet_arch: >-
+  {{ default_bin_arch | default('amd64', true) }}
+
+bin_pet_url: "{{ github_release_download }}/\
+  v{{ bin_pet_version }}/\
+  pet_{{ bin_pet_version }}_\
+  {{ bin_pet_os }}_{{ bin_pet_arch }}.tar.gz"
+
+bin_pet_tmp_path: >-
+  /tmp/pet_{{ bin_pet_version }}_{{ bin_pet_os }}_{{ bin_pet_arch }}
+
+...

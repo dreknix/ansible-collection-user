@@ -32,20 +32,20 @@ source  = github
 name    = kubernetes/minikube
 version = 1.32.0
 
-[superpet]
+[pet]
 source  = github
-name    = RamiAwar/superpet
-version = 0.7.0
+name    = knqyf263/pet
+version = 0.5.0
 
 [restic]
 source  = github
 name    = restic/restic
-version = 0.16.2
+version = 0.16.3
 
 [task]
 source  = github
 name    = go-task/task
-version = 3.32.0
+version = 3.33.1
 
 [taskwarrior]
 source  = github
