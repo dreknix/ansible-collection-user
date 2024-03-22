@@ -27,6 +27,10 @@
   ansible.builtin.import_tasks: delta_main.yml
   tags: user_bin_delta
 
+- name: Include task for installing docker-credential-helpers
+  ansible.builtin.import_tasks: docker-credential-helpers_main.yml
+  tags: user_bin_docker-credential-helpers
+
 - name: Include task for installing direnv
   ansible.builtin.import_tasks: direnv_main.yml
   tags: user_bin_direnv

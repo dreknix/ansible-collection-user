@@ -8,6 +8,11 @@ source  = github
 name    = direnv/direnv
 version = 2.34.0
 
+[docker-credential-helpers]
+source  = github
+name    = docker/docker-credential-helpers
+version = 0.8.1
+
 [gopass]
 source  = github
 name    = gopasspw/gopass
