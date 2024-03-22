@@ -47,6 +47,11 @@ source  = github
 name    = kubernetes/minikube
 version = 1.32.0
 
+[neovim]
+source  = github
+name    = neovim/neovim
+version = 0.9.5
+
 [pet]
 source  = github
 name    = knqyf263/pet

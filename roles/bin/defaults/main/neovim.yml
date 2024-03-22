@@ -1,0 +1,19 @@
+---
+
+bin_neovim_force_install: >-
+  {{ default_bin_force_install | default('false', true) }}
+
+bin_neovim_bin_path: >-
+  {{ default_bin_path | default('~/bin', true) }}/nvim
+
+bin_neovim_version: >-
+  {{ lookup('ini', 'version section=neovim file={{ tools_version_file }}') }}
+
+bin_neovim_github_repo_name: >-
+  {{ lookup('ini', 'name section=neovim file={{ tools_version_file }}') }}
+
+bin_neovim_url: "{{ github_release_download }}/\
+  v{{ bin_neovim_version }}/\
+  nvim.appimage"
+
+...

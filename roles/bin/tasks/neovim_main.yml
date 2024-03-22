@@ -1,0 +1,30 @@
+---
+
+- name: Check if neovim is installed
+  ansible.builtin.stat:
+    path: "{{ bin_neovim_bin_path }}"
+  register: bin_neovim_binary
+
+- name: Check which version of neovim is installed
+  ansible.builtin.shell: |
+    {{ bin_neovim_bin_path }} --version
+  register: bin_neovim_version_check
+  check_mode: false
+  when: >
+    bin_neovim_binary.stat.exists
+    and bin_neovim_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of neovim
+  ansible.builtin.include_tasks: neovim_install.yml
+  vars:
+    bin_neovim_version_string: >-
+      NVIM v{{ bin_neovim_version }}
+  when: >
+    not (bin_neovim_binary.stat.exists
+        and bin_neovim_binary.stat.executable)
+    or bin_neovim_version_check.stdout is not defined
+    or bin_neovim_version_string != bin_neovim_version_check.stdout
+    or bin_neovim_force_install | bool
+
+...
