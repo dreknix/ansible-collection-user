@@ -18,7 +18,7 @@
 - name: Include installation of lazydocker
   ansible.builtin.include_tasks: lazydocker_install.yml
   vars:
-    bin_lazydocker_version_string: ", version={{ bin_lazydocker_version }}, "
+    bin_lazydocker_version_string: "Version: {{ bin_lazydocker_version }}"
   when: >
     not (bin_lazydocker_binary.stat.exists and bin_lazydocker_binary.stat.executable)
     or bin_lazydocker_version_check.stdout is not defined
