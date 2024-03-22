@@ -1,0 +1,28 @@
+---
+
+- name: Check if lazydocker is installed
+  ansible.builtin.stat:
+    path: "{{ bin_lazydocker_bin_path }}"
+  register: bin_lazydocker_binary
+
+- name: Check which version of lazydocker is installed
+  ansible.builtin.shell: |
+    {{ bin_lazydocker_bin_path }} --version
+  register: bin_lazydocker_version_check
+  check_mode: false
+  when: >
+    bin_lazydocker_binary.stat.exists
+    and bin_lazydocker_binary.stat.executable
+  changed_when: false
+
+- name: Include installation of lazydocker
+  ansible.builtin.include_tasks: lazydocker_install.yml
+  vars:
+    bin_lazydocker_version_string: ", version={{ bin_lazydocker_version }}, "
+  when: >
+    not (bin_lazydocker_binary.stat.exists and bin_lazydocker_binary.stat.executable)
+    or bin_lazydocker_version_check.stdout is not defined
+    or bin_lazydocker_version_string not in bin_lazydocker_version_check.stdout
+    or bin_lazydocker_force_install | bool
+
+...

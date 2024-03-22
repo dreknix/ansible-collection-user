@@ -1,0 +1,33 @@
+---
+
+- name: Set GitHub repository name
+  ansible.builtin.set_fact:
+    github_repo_name: "{{ bin_lazydocker_github_repo_name }}"
+
+- name: Create download target directory
+  ansible.builtin.file:
+    path: "{{ bin_lazydocker_tmp_path }}"
+    state: directory
+    mode: 0755
+
+- name: Download and unarchive lazydocker into temporary location
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "{{ bin_lazydocker_url }}"
+    dest: "{{ bin_lazydocker_tmp_path }}"
+    mode: 0755
+
+- name: Move lazydocker binary into place
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ bin_lazydocker_tmp_path }}/lazydocker"
+    dest: "{{ bin_lazydocker_bin_path }}"
+    mode: 0755
+  when: not ansible_check_mode
+
+- name: Remove downloaded target directory
+  ansible.builtin.file:
+    path: "{{ bin_lazydocker_tmp_path }}"
+    state: absent
+
+...

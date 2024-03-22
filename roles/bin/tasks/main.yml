@@ -27,6 +27,10 @@
   ansible.builtin.import_tasks: delta_main.yml
   tags: user_bin_delta
 
+- name: Include task for installing direnv
+  ansible.builtin.import_tasks: direnv_main.yml
+  tags: user_bin_direnv
+
 - name: Include task for installing gopass
   ansible.builtin.import_tasks: gopass_main.yml
   tags: user_bin_gopass
@@ -42,6 +46,14 @@
 - name: Include task for installing kubectl
   ansible.builtin.import_tasks: kubectl_main.yml
   tags: user_bin_kubectl
+
+- name: Include task for installing lazydocker
+  ansible.builtin.import_tasks: lazydocker_main.yml
+  tags: user_bin_lazydocker
+
+- name: Include task for installing lazygit
+  ansible.builtin.import_tasks: lazygit_main.yml
+  tags: user_bin_lazygit
 
 - name: Include task for installing micro
   ansible.builtin.import_tasks: micro_main.yml

@@ -1,12 +1,17 @@
 [delta]
 source  = github
 name    = dandavison/delta
-version = 0.16.5
+version = 0.17.0
+
+[direnv]
+source  = github
+name    = direnv/direnv
+version = 2.34.0
 
 [gopass]
 source  = github
 name    = gopasspw/gopass
-version = 1.15.11
+version = 1.15.12
 
 [gopass-jsonapi]
 source  = github
@@ -22,6 +27,16 @@ version = 2.12.0
 source  = misc
 version = 1.26.1
 
+[lazygit]
+source  = github
+name    = jesseduffield/lazygit
+version = 0.40.1
+
+[lazydocker]
+source  = github
+name    = jesseduffield/lazydocker
+version = 0.23.1
+
 [micro]
 source  = github
 name    = zyedidia/micro
@@ -35,17 +50,17 @@ version = 1.32.0
 [pet]
 source  = github
 name    = knqyf263/pet
-version = 0.5.0
+version = 0.7.0
 
 [restic]
 source  = github
 name    = restic/restic
-version = 0.16.3
+version = 0.16.4
 
 [task]
 source  = github
 name    = go-task/task
-version = 3.33.1
+version = 3.35.1
 
 [taskwarrior]
 source  = github
