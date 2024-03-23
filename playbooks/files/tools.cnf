@@ -8,6 +8,11 @@ source  = github
 name    = direnv/direnv
 version = 2.34.0
 
+[dive]
+source  = github
+name    = wagoodman/dive
+version = 0.12.0
+
 [docker-credential-helpers]
 source  = github
 name    = docker/docker-credential-helpers
