@@ -4,7 +4,7 @@ bin_kubectl_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_kubectl_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/kubectl
+  {{ default_bin_path | default(bin_user_path, true) }}/kubectl
 
 bin_kubectl_version: >-
   {{ lookup('ini', 'version section=kubectl file={{ tools_version_file }}') }}

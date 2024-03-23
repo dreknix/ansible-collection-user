@@ -6,7 +6,7 @@
 
 - name: Creates bin directory
   ansible.builtin.file:
-    path: "{{ default_bin_path | default('~/bin', true) }}"
+    path: "{{ default_bin_path | default(bin_user_path, true) }}"
     state: directory
     mode: 0755
 

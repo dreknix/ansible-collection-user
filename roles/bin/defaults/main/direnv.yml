@@ -4,7 +4,7 @@ bin_direnv_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_direnv_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/direnv
+  {{ default_bin_path | default(bin_user_path, true) }}/direnv
 
 bin_direnv_version: >-
   {{ lookup('ini', 'version section=direnv file={{ tools_version_file }}') }}

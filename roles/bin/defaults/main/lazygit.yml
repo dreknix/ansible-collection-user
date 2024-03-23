@@ -4,7 +4,7 @@ bin_lazygit_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_lazygit_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/lazygit
+  {{ default_bin_path | default(bin_user_path, true) }}/lazygit
 
 bin_lazygit_version: >-
   {{ lookup('ini', 'version section=lazygit file={{ tools_version_file }}') }}

@@ -4,7 +4,7 @@ bin_hadolint_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_hadolint_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/hadolint
+  {{ default_bin_path | default(bin_user_path, true) }}/hadolint
 
 bin_hadolint_version: >-
   {{ lookup('ini', 'version section=hadolint file={{ tools_version_file }}') }}

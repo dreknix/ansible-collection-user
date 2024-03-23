@@ -4,7 +4,7 @@ bin_delta_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_delta_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/delta
+  {{ default_bin_path | default(bin_user_path, true) }}/delta
 
 bin_delta_version: >-
   {{ lookup('ini', 'version section=delta file={{ tools_version_file }}') }}

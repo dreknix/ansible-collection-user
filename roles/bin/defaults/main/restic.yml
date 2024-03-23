@@ -4,7 +4,7 @@ bin_restic_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_restic_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/restic
+  {{ default_bin_path | default(bin_user_path, true) }}/restic
 
 bin_restic_version: >-
   {{ lookup('ini', 'version section=restic file={{ tools_version_file }}') }}

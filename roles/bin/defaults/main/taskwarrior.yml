@@ -4,7 +4,7 @@ bin_taskwarrior_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_taskwarrior_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/taskwarrior
+  {{ default_bin_path | default(bin_user_path, true) }}/taskwarrior
 
 bin_taskwarrior_version: >-
   {{ lookup('ini', 'version section=taskwarrior file={{ tools_version_file }}') }}

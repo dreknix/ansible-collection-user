@@ -1,5 +1,7 @@
 ---
 
+bin_user_path: "~/bin-tools"
+
 bin_bash_completion_path: "{{ xdg_data_home }}/bash-completion"
 
 ...

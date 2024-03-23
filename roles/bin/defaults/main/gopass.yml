@@ -4,7 +4,7 @@ bin_gopass_force_install: >-
   {{ default_bin_force_install | default('false', true) }}
 
 bin_gopass_bin_path: >-
-  {{ default_bin_path | default('~/bin', true) }}/gopass
+  {{ default_bin_path | default(bin_user_path, true) }}/gopass
 
 bin_gopass_version: >-
   {{ lookup('ini', 'version section=gopass file={{ tools_version_file }}') }}
