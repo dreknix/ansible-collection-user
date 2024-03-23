@@ -1,5 +1,11 @@
 ---
 
+- name: Install libfuse2
+  become: true
+  ansible.builtin.apt:
+    name: libfuse2
+    state: present
+
 - name: Set GitHub repository name
   ansible.builtin.set_fact:
     github_repo_name: "{{ bin_neovim_github_repo_name }}"
