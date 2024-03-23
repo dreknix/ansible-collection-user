@@ -32,7 +32,7 @@
     - make
     - sed -i "s/task/taskwarrior/g" "scripts/bash/task.sh"
     - sed -i "s/taskwarriorwarrior/taskwarrior/g" "scripts/bash/task.sh"
-    - sed -i "/^taskwarriorbin/ s/'taskwarrior'/\"\$\{HOME\}\/bin\/taskwarrior\"/" "scripts/bash/task.sh"
+    - sed -i "/^taskwarriorbin/ s/'taskwarrior'/\"\$\{HOME\}\/bin-tools\/taskwarrior\"/" "scripts/bash/task.sh"
     - cp "scripts/bash/task.sh" "scripts/bash/t.sh"
     - sed -i "s/complete -o nospace -F _taskwarrior taskwarrior/complete -o nospace -F _taskwarrior t/g"
              "scripts/bash/t.sh"
