@@ -67,12 +67,12 @@
       - make
       - manpages
       - manpages-dev
-      - mlocate
+      # - mlocate
       - most
       - multitail
       - netcat-openbsd
       - neofetch
-      - newsboat
+      # - newsboat
       - ncdu
       - nmap
       - nnn
@@ -101,7 +101,7 @@
       - tree
       - unzip
       - vim
-      - vim-scripts
+      # - vim-scripts
       - vim-gtk3
       - wget
       - xclip
