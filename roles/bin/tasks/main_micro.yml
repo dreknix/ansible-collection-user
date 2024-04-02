@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing micro
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "micro"
+    version_args: "--version"
+    version_string: "Version: {{ bin_micro_version }}"
+    url: "{{ bin_micro_url }}"
+
+...

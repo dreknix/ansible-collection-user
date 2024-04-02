@@ -1,0 +1,20 @@
+---
+
+bin_micro_version: >-
+  {{ lookup('ini', 'version section=micro file={{ tools_version_file }}') }}
+
+bin_micro_github_repo_name: >-
+  {{ lookup('ini', 'name section=micro file={{ tools_version_file }}') }}
+
+bin_micro_os: linux
+
+bin_micro_arch: 64
+
+bin_micro_url: "https://github.com/\
+  {{ bin_micro_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_micro_version }}/\
+  micro-{{ bin_micro_version }}-\
+  {{ bin_micro_os }}{{ bin_micro_arch }}-static.tar.gz"
+
+...

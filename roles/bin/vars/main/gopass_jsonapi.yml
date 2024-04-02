@@ -1,0 +1,21 @@
+---
+
+bin_gopass_jsonapi_version: >-
+  {{ lookup('ini', 'version section=gopass-jsonapi file={{ tools_version_file }}') }}
+
+bin_gopass_jsonapi_github_repo_name: >-
+  {{ lookup('ini', 'name section=gopass-jsonapi file={{ tools_version_file }}') }}
+
+bin_gopass_jsonapi_os: linux
+
+bin_gopass_jsonapi_arch: amd64
+
+bin_gopass_jsonapi_url: "https://github.com/\
+  {{ bin_gopass_jsonapi_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_gopass_jsonapi_version }}/\
+  gopass-jsonapi-\
+  {{ bin_gopass_jsonapi_version }}-\
+  {{ bin_gopass_jsonapi_os }}-{{ bin_gopass_jsonapi_arch }}.tar.gz"
+
+...

@@ -1,0 +1,19 @@
+---
+
+bin_direnv_version: >-
+  {{ lookup('ini', 'version section=direnv file={{ tools_version_file }}') }}
+
+bin_direnv_github_repo_name: >-
+  {{ lookup('ini', 'name section=direnv file={{ tools_version_file }}') }}
+
+bin_direnv_os: linux
+
+bin_direnv_arch: amd64
+
+bin_direnv_url: "https://github.com/\
+  {{ bin_direnv_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_direnv_version }}/\
+  direnv.{{ bin_direnv_os }}-{{ bin_direnv_arch }}"
+
+...

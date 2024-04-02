@@ -1,0 +1,12 @@
+---
+
+- name: Include task for installing delta
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "delta"
+    version_args: "--version"
+    version_string: "delta {{ bin_delta_version }}"
+    url: "{{ bin_delta_url }}"
+    generate_completion: "--generate-completion bash"
+
+...

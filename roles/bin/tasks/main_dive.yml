@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing dive
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "dive"
+    version_args: "version"
+    version_string: "dive {{ bin_dive_version }}"
+    url: "{{ bin_dive_url }}"
+
+...

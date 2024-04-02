@@ -1,0 +1,19 @@
+---
+
+bin_lazygit_version: >-
+  {{ lookup('ini', 'version section=lazygit file={{ tools_version_file }}') }}
+
+bin_lazygit_github_repo_name: >-
+  {{ lookup('ini', 'name section=lazygit file={{ tools_version_file }}') }}
+
+bin_lazygit_os: Linux
+
+bin_lazygit_arch: x86_64
+
+bin_lazygit_url: "https://github.com/\
+  {{ bin_lazygit_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_lazygit_version }}/\
+  lazygit_{{ bin_lazygit_version }}_{{ bin_lazygit_os }}_{{ bin_lazygit_arch }}.tar.gz"
+
+...

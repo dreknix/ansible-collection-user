@@ -1,0 +1,19 @@
+---
+
+bin_lazydocker_version: >-
+  {{ lookup('ini', 'version section=lazydocker file={{ tools_version_file }}') }}
+
+bin_lazydocker_github_repo_name: >-
+  {{ lookup('ini', 'name section=lazydocker file={{ tools_version_file }}') }}
+
+bin_lazydocker_os: Linux
+
+bin_lazydocker_arch: x86_64
+
+bin_lazydocker_url: "https://github.com/\
+  {{ bin_lazydocker_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_lazydocker_version }}/\
+  lazydocker_{{ bin_lazydocker_version }}_{{ bin_lazydocker_os }}_{{ bin_lazydocker_arch }}.tar.gz"
+
+...

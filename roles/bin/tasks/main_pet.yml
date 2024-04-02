@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing pet
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "pet"
+    version_args: "version"
+    version_string: "pet version {{ bin_pet_version }}"
+    url: "{{ bin_pet_url }}"
+
+...

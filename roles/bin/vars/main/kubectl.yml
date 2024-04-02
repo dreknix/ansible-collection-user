@@ -1,0 +1,14 @@
+---
+
+bin_kubectl_version: >-
+  {{ lookup('ini', 'version section=kubectl file={{ tools_version_file }}') }}
+
+bin_kubectl_os: linux
+
+bin_kubectl_arch: amd64
+
+bin_kubectl_url: "https://dl.k8s.io/release/\
+  v{{ bin_kubectl_version }}/\
+  bin/{{ bin_kubectl_os }}/{{ bin_kubectl_arch }}/kubectl"
+
+...

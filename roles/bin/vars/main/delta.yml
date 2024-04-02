@@ -1,0 +1,20 @@
+---
+
+bin_delta_version: >-
+  {{ lookup('ini', 'version section=delta file={{ tools_version_file }}') }}
+
+bin_delta_github_repo_name: >-
+  {{ lookup('ini', 'name section=delta file={{ tools_version_file }}') }}
+
+bin_delta_os: linux
+
+bin_delta_arch: x86_64
+
+bin_delta_url: "https://github.com/\
+  {{ bin_delta_github_repo_name }}/\
+  releases/download/\
+  {{ bin_delta_version }}/\
+  delta-{{ bin_delta_version }}-\
+  {{ bin_delta_arch }}-unknown-{{ bin_delta_os }}-gnu.tar.gz"
+
+...

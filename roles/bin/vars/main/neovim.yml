@@ -1,0 +1,15 @@
+---
+
+bin_neovim_version: >-
+  {{ lookup('ini', 'version section=neovim file={{ tools_version_file }}') }}
+
+bin_neovim_github_repo_name: >-
+  {{ lookup('ini', 'name section=neovim file={{ tools_version_file }}') }}
+
+bin_neovim_url: "https://github.com/\
+  {{ bin_neovim_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_neovim_version }}/\
+  nvim.appimage"
+
+...

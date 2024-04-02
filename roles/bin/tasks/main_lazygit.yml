@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing lazygit
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "lazygit"
+    version_args: "--version"
+    version_string: "version={{ bin_lazygit_version }}"
+    url: "{{ bin_lazygit_url }}"
+
+...

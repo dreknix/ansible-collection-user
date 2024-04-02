@@ -24,59 +24,59 @@
   when: ansible_os_family == "Debian"
 
 - name: Include task for installing delta
-  ansible.builtin.import_tasks: delta_main.yml
+  ansible.builtin.import_tasks: main_delta.yml
   tags: user_bin_delta
 
 - name: Include task for installing direnv
-  ansible.builtin.import_tasks: direnv_main.yml
+  ansible.builtin.import_tasks: main_direnv.yml
   tags: user_bin_direnv
 
 - name: Include task for installing dive
-  ansible.builtin.import_tasks: dive_main.yml
+  ansible.builtin.import_tasks: main_dive.yml
   tags: user_bin_dive
 
 - name: Include task for installing docker-credential-helpers
-  ansible.builtin.import_tasks: docker-credential-helpers_main.yml
+  ansible.builtin.import_tasks: main_docker-credential-helpers.yml
   tags: user_bin_docker-credential-helpers
 
 - name: Include task for installing gopass
-  ansible.builtin.import_tasks: gopass_main.yml
+  ansible.builtin.import_tasks: main_gopass.yml
   tags: user_bin_gopass
 
 - name: Include task for installing gopass-jsonapi
-  ansible.builtin.import_tasks: gopass_jsonapi_main.yml
+  ansible.builtin.import_tasks: main_gopass_jsonapi.yml
   tags: user_bin_gopass_jsonapi
 
 - name: Include task for installing hadolint
-  ansible.builtin.import_tasks: hadolint_main.yml
+  ansible.builtin.import_tasks: main_hadolint.yml
   tags: user_bin_hadolint
 
 - name: Include task for installing kubectl
-  ansible.builtin.import_tasks: kubectl_main.yml
+  ansible.builtin.import_tasks: main_kubectl.yml
   tags: user_bin_kubectl
 
 - name: Include task for installing lazydocker
-  ansible.builtin.import_tasks: lazydocker_main.yml
+  ansible.builtin.import_tasks: main_lazydocker.yml
   tags: user_bin_lazydocker
 
 - name: Include task for installing lazygit
-  ansible.builtin.import_tasks: lazygit_main.yml
+  ansible.builtin.import_tasks: main_lazygit.yml
   tags: user_bin_lazygit
 
 - name: Include task for installing micro
-  ansible.builtin.import_tasks: micro_main.yml
+  ansible.builtin.import_tasks: main_micro.yml
   tags: user_bin_micro
 
-- name: Include task for installing neovim
-  ansible.builtin.import_tasks: neovim_main.yml
-  tags: user_bin_neovim
-
 - name: Include task for installing minikube
-  ansible.builtin.import_tasks: minikube_main.yml
+  ansible.builtin.import_tasks: main_minikube.yml
   tags: user_bin_minikube
 
+- name: Include task for installing neovim
+  ansible.builtin.import_tasks: main_neovim.yml
+  tags: user_bin_neovim
+
 - name: Include task for installing pet
-  ansible.builtin.import_tasks: pet_main.yml
+  ansible.builtin.import_tasks: main_pet.yml
   tags: user_bin_pet
 
 - name: Include task for installing restic

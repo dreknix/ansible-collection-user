@@ -1,0 +1,25 @@
+---
+
+- name: Check if binary is installed
+  ansible.builtin.stat:
+    path: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
+  register:
+    bin_binary
+
+# - name: Show variable bin_binary
+#   ansible.builtin.debug:
+#     var: bin_binary
+
+- name: Check which version is installed
+  ansible.builtin.shell: |
+    {{ (bin_user_path, binary) | ansible.builtin.path_join }} {{ version_args }}
+  register: bin_binary_version
+  check_mode: false
+  changed_when: false
+  when: bin_binary.stat.exists and bin_binary.stat.executable
+
+# - name: Show variable bin_binary_version
+#   ansible.builtin.debug:
+#     var: bin_binary_version
+
+...

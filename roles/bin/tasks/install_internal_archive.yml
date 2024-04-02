@@ -1,0 +1,54 @@
+---
+
+- name: Download archive
+  ansible.builtin.unarchive:
+    src: "{{ url }}"
+    dest: "/tmp"
+    remote_src: true
+    list_files: true
+  register: tmp_archive
+
+# - name: Show variable archive
+#   ansible.builtin.debug:
+#     var: archive
+
+- name: Set variables
+  ansible.builtin.set_fact:
+    tmp_archive_directory: "{{ ('/tmp', tmp_archive.files[0].split('/')[0]) | ansible.builtin.path_join }}"
+  when:
+    tmp_archive.files[0].split('/')[0] != tmp_archive.files[0]
+
+- name: Set variables
+  ansible.builtin.set_fact:
+    tmp_archive_directory: "/tmp"
+  when:
+    tmp_archive.files[0].split('/')[0] == tmp_archive.files[0]
+
+# - name: Show variable tmp_archive_directory
+#   ansible.builtin.debug:
+#     var: tmp_archive_directory
+
+- name: Copy binary into place
+  ansible.builtin.copy:
+    src: "{{ (tmp_archive_directory, binary) | ansible.builtin.path_join }}"
+    dest: "{{ bin_user_path }}"
+    mode: u=rwx,go=rx
+  when:
+    not ansible_check_mode
+
+- name: Remove archive directory
+  ansible.builtin.file:
+    path: "{{ tmp_archive_directory }}"
+    state: absent
+  when:
+    tmp_archive_directory != "/tmp"
+
+- name: Remove archive files
+  ansible.builtin.file:
+    path: "{{ (tmp_archive_directory, item) | ansible.builtin.path_join }}"
+    state: absent
+  with_items: "{{ tmp_archive.files }}"
+  when:
+    tmp_archive_directory == "/tmp"
+
+...

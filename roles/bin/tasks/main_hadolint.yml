@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing hadolint
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "hadolint"
+    version_args: "--version"
+    version_string: "Haskell Dockerfile Linter {{ bin_hadolint_version }}"
+    url: "{{ bin_hadolint_url }}"
+
+...

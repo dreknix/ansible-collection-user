@@ -1,0 +1,10 @@
+---
+
+- name: Download binary
+  ansible.builtin.get_url:
+    url: "{{ url }}"
+    dest: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
+    force: true
+    mode: u=rwx,go=rx
+
+...

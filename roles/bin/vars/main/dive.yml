@@ -1,0 +1,20 @@
+---
+
+bin_dive_version: >-
+  {{ lookup('ini', 'version section=dive file={{ tools_version_file }}') }}
+
+bin_dive_github_repo_name: >-
+  {{ lookup('ini', 'name section=dive file={{ tools_version_file }}') }}
+
+bin_dive_os: linux
+
+bin_dive_arch: amd64
+
+bin_dive_url: "https://github.com/\
+  {{ bin_dive_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_dive_version }}/\
+  dive_{{ bin_dive_version }}_\
+  {{ bin_dive_os }}_{{ bin_dive_arch }}.tar.gz"
+
+...

@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing lazydocker
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "lazydocker"
+    version_args: "version"
+    version_string: "Version: {{ bin_lazydocker_version }}"
+    url: "{{ bin_lazydocker_url }}"
+
+...

@@ -1,0 +1,23 @@
+---
+
+bin_gopass_version: >-
+  {{ lookup('ini', 'version section=gopass file={{ tools_version_file }}') }}
+
+bin_gopass_github_repo_name: >-
+  {{ lookup('ini', 'name section=gopass file={{ tools_version_file }}') }}
+
+bin_gopass_os: linux
+
+bin_gopass_arch: amd64
+
+bin_gopass_url: "https://github.com/\
+  {{ bin_gopass_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_gopass_version }}/\
+  gopass-\
+  {{ bin_gopass_version }}-{{ bin_gopass_os }}-{{ bin_gopass_arch }}.tar.gz"
+
+bin_gopass_config_file: >-
+  {{ local_xdg_config_home }}/gopass/config
+
+...

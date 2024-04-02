@@ -1,0 +1,24 @@
+---
+
+- name: Include task for installing kubectl
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "kubectl"
+    version_args: "version --client=true --short"
+    version_string: "Client Version: v{{ bin_kubectl_version }}"
+    url: "{{ bin_kubectl_url }}"
+    generate_completion: "completion bash"
+
+- name: Read kubectl bash completion
+  ansible.builtin.slurp:
+    src: "{{ (bin_bash_completion_path, '{{ binary }}.sh') | ansible.builtin.path_join }}"
+  register: bin_kubectl_completion
+
+- name: Save bash completion to k.sh
+  ansible.builtin.copy:
+    content: >
+      {{  bin_kubectl_completion.content | b64decode | replace('__start_kubectl kubectl', '__start_kubectl k') }}
+    dest: "{{ (bin_bash_completion_path, 'k.sh') | ansible.builtin.path_join }}"
+    mode: u=rw,go=r
+
+...

@@ -1,0 +1,26 @@
+---
+
+# - name: Show variable generate_completion
+#   ansible.builtin.debug:
+#     var: generate_completion
+
+- name: Generate bash generate_completion
+  ansible.builtin.command: >-
+    {{ (bin_user_path, binary) | ansible.builtin.path_join }}
+    {{ generate_completion }}
+  check_mode: false
+  changed_when: false
+  register: bash_completion
+
+# - name: Show variable bash_completion
+#   ansible.builtin.debug:
+#     var: bash_completion
+
+- name: Save bash completion script
+  ansible.builtin.copy:
+    content: "{{ bash_completion.stdout }}"
+    dest: "{{ (bin_bash_completion_path, '{{ binary }}.sh') | ansible.builtin.path_join }}"
+    mode: u=rw,go=r
+  when: bash_completion.rc == 0
+
+...

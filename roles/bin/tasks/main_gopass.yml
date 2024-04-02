@@ -1,0 +1,60 @@
+---
+
+- name: Install gnupg2, git and rng-tools (needed by gopass)
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gnupg2
+    - git
+    - rng-tools
+
+- name: Include task for installing gopass
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "gopass"
+    version_args: "version"
+    version_string: "gopass {{ bin_gopass_version }}"
+    url: "{{ bin_gopass_url }}"
+    generate_completion: "completion bash"
+
+- name: Ansible check gopass configuration exists.
+  ansible.builtin.stat:
+    path: "{{ bin_gopass_config_file }}"
+  register: gopass_configuration
+
+- name: Check gopass configuration
+  ansible.builtin.lineinfile:
+    dest: "{{ bin_gopass_config_file }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^\\tautoclip\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tautoclip = false"
+    - regexp: "^\\tautoimport\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tautoimport = true"
+    - regexp: "^\\tcliptimeout\\s*=\\s*[0-9]+\\s*$"
+      # noqa: no-tabs
+      line: "\tcliptimeout = 60"
+    - regexp: "^\\texportkeys\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\texportkeys = true"
+    - regexp: "^\\tnopager\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tnopager = true"
+    - regexp: "^\\tnotifications\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tnotifications = false"
+    - regexp: "^\\tparsing\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tparsing = false"
+    - regexp: "^\\tshowsafecontent\\s*=\\s*(false|true)\\s*$"
+      # noqa: no-tabs
+      line: "\tshowsafecontent = false"
+  when: gopass_configuration.stat.exists
+
+...

@@ -1,0 +1,25 @@
+---
+
+- name: Check binary version - {{ binary }}
+  ansible.builtin.include_tasks: install_internal_check.yml
+  when: not force_install | default(false) | bool
+
+- name: Install binary - {{ binary }}
+  ansible.builtin.include_tasks: install_internal_binary.yml
+  when: >
+    not (bin_binary.stat.exists and bin_binary.stat.executable)
+    or bin_binary_version.stdout is not defined
+    or version_string not in bin_binary_version.stdout
+    or force_install | default(false) | bool
+
+- name: Generate bash completion - {{ binary }}
+  ansible.builtin.include_tasks: install_internal_completion.yml
+  when: >
+    generate_completion is defined and (
+      not (bin_binary.stat.exists and bin_binary.stat.executable)
+      or bin_binary_version.stdout is not defined
+      or version_string not in bin_binary_version.stdout
+      or force_install | default(false) | bool
+    )
+
+...

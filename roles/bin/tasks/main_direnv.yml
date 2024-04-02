@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing direnv
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "direnv"
+    version_args: "version"
+    version_string: "{{ bin_direnv_version }}"
+    url: "{{ bin_direnv_url }}"
+
+...

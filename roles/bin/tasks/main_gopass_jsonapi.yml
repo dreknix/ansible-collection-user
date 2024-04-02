@@ -1,0 +1,11 @@
+---
+
+- name: Include task for installing gopass-jsonapi
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "gopass-jsonapi"
+    version_args: "version"
+    version_string: "gopass-jsonapi version {{ bin_gopass_jsonapi_version }}"
+    url: "{{ bin_gopass_jsonapi_url }}"
+
+...

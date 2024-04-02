@@ -1,0 +1,17 @@
+---
+
+- name: Install libfuse2 (needed by neovim AppImage)
+  become: true
+  ansible.builtin.package:
+    name: libfuse2
+    state: present
+
+- name: Include task for installing neovim
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "nvim"
+    version_args: "--version version"
+    version_string: "NVIM v{{ bin_neovim_version }}"
+    url: "{{ bin_neovim_url }}"
+
+...

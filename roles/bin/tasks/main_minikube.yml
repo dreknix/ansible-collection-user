@@ -1,0 +1,12 @@
+---
+
+- name: Include task for installing minikube
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "minikube"
+    version_args: "version"
+    version_string: "minikube version: v{{ bin_minikube_version }}"
+    url: "{{ bin_minikube_url }}"
+    generate_completion: "completion bash"
+
+...
