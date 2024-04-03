@@ -1,0 +1,15 @@
+---
+
+- name: Include task for installing task
+  ansible.builtin.import_tasks: install_archive.yml
+  vars:
+    binary: "task"
+    version_args: "--version"
+    version_string: "x Task version: v{{ bin_task_version }}"
+    url: "{{ bin_task_url }}"
+    file_copy:
+      - src: "completion/bash/task.bash"
+        dest: "{{ (bin_bash_completion_path, 'task.sh') | ansible.builtin.path_join }}"
+        mode: u=rw,go=r
+
+...

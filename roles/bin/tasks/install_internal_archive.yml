@@ -33,8 +33,17 @@
     src: "{{ (tmp_archive_directory, binary) | ansible.builtin.path_join }}"
     dest: "{{ bin_user_path }}"
     mode: u=rwx,go=rx
-  when:
-    not ansible_check_mode
+  when: not ansible_check_mode
+
+- name: Copy additional files
+  when: file_copy is defined and not ansible_check_mode
+  ansible.builtin.copy:
+    src: "{{ (tmp_archive_directory, item.src) | ansible.builtin.path_join }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode | default('u=rw,go=r') }}"
+  with_items: "{{ file_copy }}"
+  loop_control:
+    label: "{{ item.src }}"
 
 - name: Remove archive directory
   ansible.builtin.file:

@@ -1,10 +1,29 @@
 ---
 
-- name: Download binary
-  ansible.builtin.get_url:
-    url: "{{ url }}"
-    dest: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
-    force: true
-    mode: u=rwx,go=rx
+- name: Get binary
+  when: not url.endswith(".bz2")
+  block:
+    - name: Download binary
+      ansible.builtin.get_url:
+        url: "{{ url }}"
+        dest: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
+        force: true
+        mode: u=rwx,go=rx
+
+- name: Get compressed binary
+  when: url.endswith(".bz2")
+  block:
+    - name: Download compressed binary
+      ansible.builtin.get_url:
+        url: "{{ url }}"
+        dest: "{{ (bin_user_path, '{{ binary }}.bz2') | ansible.builtin.path_join }}"
+        force: true
+        mode: u=rw,go=r
+
+    - name: Extract restic
+      ansible.builtin.command: >-
+        bzip2 -d "{{ (bin_user_path, '{{ binary }}.bz2') | ansible.builtin.path_join }}"
+      args:
+        creates: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
 
 ...

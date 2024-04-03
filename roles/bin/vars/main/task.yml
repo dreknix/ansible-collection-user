@@ -1,0 +1,19 @@
+---
+
+bin_task_version: >-
+  {{ lookup('ini', 'version section=task file={{ tools_version_file }}') }}
+
+bin_task_github_repo_name: >-
+  {{ lookup('ini', 'name section=task file={{ tools_version_file }}') }}
+
+bin_task_os: linux
+
+bin_task_arch: amd64
+
+bin_task_url: "https://github.com/\
+  {{ bin_task_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_task_version }}/\
+  task_{{ bin_task_os }}_{{ bin_task_arch }}.tar.gz"
+
+...

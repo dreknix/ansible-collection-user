@@ -1,0 +1,26 @@
+---
+
+- name: Install fuse and bzip2 (needed by restic)
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - fuse3
+    - bzip2
+
+- name: Include task for installing restic
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "restic"
+    version_args: "version"
+    version_string: "restic {{ bin_restic_version }}"
+    url: "{{ bin_restic_url }}"
+    after_cmds:
+      - >-
+        "{{ (bin_user_path, 'restic') | ansible.builtin.path_join }}"
+        generate
+        --bash-completion
+        "{{ (bin_bash_completion_path, 'restic.sh') | ansible.builtin.path_join }}"
+
+...

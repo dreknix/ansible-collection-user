@@ -1,0 +1,8 @@
+---
+
+- name: Execute after command
+  ansible.builtin.command: "{{ item }}"
+  with_items: "{{ after_cmds }}"
+  changed_when: false
+
+...

@@ -80,11 +80,11 @@
   tags: user_bin_pet
 
 - name: Include task for installing restic
-  ansible.builtin.import_tasks: restic_main.yml
+  ansible.builtin.import_tasks: main_restic.yml
   tags: user_bin_restic
 
 - name: Include task for installing task
-  ansible.builtin.import_tasks: task_main.yml
+  ansible.builtin.import_tasks: main_task.yml
   tags: user_bin_task
 
 - name: Include task for installing taskwarrior
