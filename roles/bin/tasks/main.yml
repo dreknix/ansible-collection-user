@@ -51,6 +51,10 @@
   ansible.builtin.import_tasks: main_hadolint.yml
   tags: user_bin_hadolint
 
+- name: Include task for installing KeePassXC
+  ansible.builtin.import_tasks: main_keepassxc.yml
+  tags: user_bin_keepassxc
+
 - name: Include task for installing kubectl
   ansible.builtin.import_tasks: main_kubectl.yml
   tags: user_bin_kubectl
@@ -88,7 +92,7 @@
   tags: user_bin_task
 
 - name: Include task for installing taskwarrior
-  ansible.builtin.import_tasks: taskwarrior_main.yml
+  ansible.builtin.import_tasks: main_taskwarrior.yml
   tags: user_bin_taskwarrior
 
 ...

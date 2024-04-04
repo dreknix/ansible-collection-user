@@ -33,6 +33,11 @@ source  = github
 name    = hadolint/hadolint
 version = 2.12.0
 
+[keepassxc]
+source  = github
+name    = keepassxreboot/keepassxc
+version = 2.7.7
+
 [kubectl]
 source  = misc
 version = 1.26.1

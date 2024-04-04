@@ -1,0 +1,17 @@
+---
+
+bin_keepassxc_version: >-
+  {{ lookup('ini', 'version section=keepassxc file={{ tools_version_file }}') }}
+
+bin_keepassxc_github_repo_name: >-
+  {{ lookup('ini', 'name section=keepassxc file={{ tools_version_file }}') }}
+
+bin_keepassxc_arch: x86_64
+
+bin_keepassxc_url: "https://github.com/\
+  {{ bin_keepassxc_github_repo_name }}/\
+  releases/download/\
+  {{ bin_keepassxc_version }}/\
+  KeePassXC-{{ bin_keepassxc_version }}-{{ bin_keepassxc_arch }}.AppImage"
+
+...

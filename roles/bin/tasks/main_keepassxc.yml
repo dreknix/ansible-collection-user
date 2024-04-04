@@ -1,0 +1,17 @@
+---
+
+- name: Install libfuse2 (needed by KeePassXC AppImage)
+  become: true
+  ansible.builtin.package:
+    name: libfuse2
+    state: present
+
+- name: Include task for installing keepassxc
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "keepassxc"
+    version_args: "--version version"
+    version_string: "KeePassXC {{ bin_keepassxc_version }}"
+    url: "{{ bin_keepassxc_url }}"
+
+...
