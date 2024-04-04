@@ -1,18 +1,14 @@
 ---
 
-bin_taskwarrior_force_install: >-
-  {{ default_bin_force_install | default('false', true) }}
-
-bin_taskwarrior_bin_path: >-
-  {{ default_bin_path | default(bin_user_path, true) }}/taskwarrior
-
 bin_taskwarrior_version: >-
   {{ lookup('ini', 'version section=taskwarrior file={{ tools_version_file }}') }}
 
 bin_taskwarrior_github_repo_name: >-
   {{ lookup('ini', 'name section=taskwarrior file={{ tools_version_file }}') }}
 
-bin_taskwarrior_url: "{{ github_release_download }}/\
+bin_taskwarrior_url: "https://github.com/\
+  {{ bin_taskwarrior_github_repo_name }}/\
+  releases/download/\
   v{{ bin_taskwarrior_version }}/\
   task-{{ bin_taskwarrior_version }}.tar.gz"
 

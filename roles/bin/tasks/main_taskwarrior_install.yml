@@ -21,7 +21,7 @@
     remote_src: true
     src: "{{ bin_taskwarrior_url }}"
     dest: "/tmp"
-    mode: 0755
+    mode: u=rwx,go=rx
 
 - name: Build taskwarrior
   ansible.builtin.command:
@@ -42,8 +42,8 @@
   ansible.builtin.copy:
     remote_src: true
     src: "{{ bin_taskwarrior_tmp_path }}/src/task"
-    dest: "{{ bin_taskwarrior_bin_path }}"
-    mode: 0755
+    dest: "{{ (bin_user_path, 'taskwarrior') | ansible.builtin.path_join }}"
+    mode: u=rwx,go=rx
   when: not ansible_check_mode
 
 - name: Move taskwarrior bash completion into place
@@ -51,7 +51,7 @@
     remote_src: true
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    mode: 0644
+    mode: u=rw,go=r
   with_items:
     - src: "{{ bin_taskwarrior_tmp_path }}/scripts/bash/task.sh"
       dest: "{{ bin_bash_completion_path }}/taskwarrior.sh"
