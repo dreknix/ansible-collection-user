@@ -14,4 +14,28 @@
     version_string: "KeePassXC {{ bin_keepassxc_version }}"
     url: "{{ bin_keepassxc_url }}"
 
+- name: Ensure XDG desktop directory exists
+  ansible.builtin.file:
+    path: "{{ xdg_data_home }}/applications"
+    state: directory
+    mode: u=rwx,go=rx
+
+- name: Copy XDG desktop file
+  ansible.builtin.copy:
+    src: "org.keepassxc.KeePassXC.desktop"
+    dest: "{{ xdg_data_home }}/applications/org.keepassxc.KeePassXC.desktop"
+    mode: u=rwx,go=rx
+
+- name: Ensure icon directory exists
+  ansible.builtin.file:
+    path: "{{ xdg_data_home }}/icons"
+    state: directory
+    mode: u=rwx,go=
+
+- name: Download keepassxc icon
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/keepassxreboot/keepassxc/develop/share/icons/application/256x256/apps/keepassxc.png
+    dest: "{{ xdg_data_home }}/icons/keepassxc.png"
+    mode: u=rw,go=
+
 ...
