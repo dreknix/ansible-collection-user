@@ -11,7 +11,7 @@
 
 - name: Read kubectl bash completion
   ansible.builtin.slurp:
-    src: "{{ (bin_bash_completion_path, '{{ binary }}.sh') | ansible.builtin.path_join }}"
+    src: "{{ (bin_bash_completion_path, 'kubectl.sh') | ansible.builtin.path_join }}"
   register: bin_kubectl_completion
 
 - name: Save bash completion to k.sh
