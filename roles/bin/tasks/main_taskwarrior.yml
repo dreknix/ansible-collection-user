@@ -10,7 +10,7 @@
 - name: Include binary from archive - taskwarrior
   ansible.builtin.include_tasks: main_taskwarrior_install.yml
   vars:
-    version_string: "x {{ bin_taskwarrior_version }}"
+    version_string: "{{ bin_taskwarrior_version }}"
   when: >
     not (bin_binary.stat.exists and bin_binary.stat.executable)
     or bin_binary_version.stdout is not defined

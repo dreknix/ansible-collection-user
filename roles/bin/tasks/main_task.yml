@@ -5,7 +5,7 @@
   vars:
     binary: "task"
     version_args: "--version"
-    version_string: "x Task version: v{{ bin_task_version }}"
+    version_string: "Task version: v{{ bin_task_version }}"
     url: "{{ bin_task_url }}"
     file_copy:
       - src: "completion/bash/task.bash"
