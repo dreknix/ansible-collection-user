@@ -16,17 +16,17 @@ version = 0.12.0
 [docker-credential-helpers]
 source  = github
 name    = docker/docker-credential-helpers
-version = 0.8.1
+version = 0.8.2
 
 [gopass]
 source  = github
 name    = gopasspw/gopass
-version = 1.15.12
+version = 1.15.13
 
 [gopass-jsonapi]
 source  = github
 name    = gopasspw/gopass-jsonapi
-version = 1.15.11
+version = 1.15.13
 
 [hadolint]
 source  = github
@@ -36,7 +36,7 @@ version = 2.12.0
 [keepassxc]
 source  = github
 name    = keepassxreboot/keepassxc
-version = 2.7.7
+version = 2.7.8
 
 [kubectl]
 source  = misc
@@ -45,12 +45,12 @@ version = 1.26.1
 [lazygit]
 source  = github
 name    = jesseduffield/lazygit
-version = 0.40.1
+version = 0.42.0
 
 [lazydocker]
 source  = github
 name    = jesseduffield/lazydocker
-version = 0.23.1
+version = 0.23.3
 
 [micro]
 source  = github
@@ -60,29 +60,34 @@ version = 2.0.13
 [minikube]
 source  = github
 name    = kubernetes/minikube
-version = 1.32.0
+version = 1.33.1
 
 [neovim]
 source  = github
 name    = neovim/neovim
-version = 0.9.5
+version = 0.10.0
 
 [pet]
 source  = github
 name    = knqyf263/pet
-version = 0.7.0
+version = 0.8.4
 
 [restic]
 source  = github
 name    = restic/restic
 version = 0.16.4
 
+[sqlitebrowser]
+source  = github
+name    = sqlitebrowser/sqlitebrowser
+version = 3.12.2
+
 [task]
 source  = github
 name    = go-task/task
-version = 3.35.1
+version = 3.37.2
 
 [taskwarrior]
 source  = github
 name    = GothenburgBitFactory/taskwarrior
-version = 2.6.2
+version = 3.0.2
