@@ -16,14 +16,19 @@
     - name: Download compressed binary
       ansible.builtin.get_url:
         url: "{{ url }}"
-        dest: "{{ (bin_user_path, '{{ binary }}.bz2') | ansible.builtin.path_join }}"
+        dest: "{{ (bin_user_path, binary + '.bz2') | ansible.builtin.path_join }}"
         force: true
         mode: u=rw,go=r
 
     - name: Extract restic
       ansible.builtin.command: >-
-        bzip2 -d "{{ (bin_user_path, '{{ binary }}.bz2') | ansible.builtin.path_join }}"
+        bzip2 -d "{{ (bin_user_path, binary + '.bz2') | ansible.builtin.path_join }}"
       args:
         creates: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
+
+    - name: Ensure that binary is executable
+      ansible.builtin.file:
+        name: "{{ (bin_user_path, binary) | ansible.builtin.path_join }}"
+        mode: u=rwx,go=rx
 
 ...

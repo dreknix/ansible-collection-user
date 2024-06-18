@@ -19,7 +19,7 @@
 - name: Save bash completion script
   ansible.builtin.copy:
     content: "{{ bash_completion.stdout }}"
-    dest: "{{ (bin_bash_completion_path, '{{ binary }}.sh') | ansible.builtin.path_join }}"
+    dest: "{{ (bin_bash_completion_path, binary + '.sh') | ansible.builtin.path_join }}"
     mode: u=rw,go=r
   when: bash_completion.rc == 0
 
