@@ -10,7 +10,7 @@
   ansible.builtin.import_tasks: install_binary.yml
   vars:
     binary: "nvim"
-    version_args: "--version version"
+    version_args: "--version"
     version_string: "NVIM v{{ bin_neovim_version }}"
     url: "{{ bin_neovim_url }}"
 
