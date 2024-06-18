@@ -34,7 +34,8 @@
 
 - name: Download keepassxc icon
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/keepassxreboot/keepassxc/develop/share/icons/application/256x256/apps/keepassxc.png
+    url: >-
+      https://raw.githubusercontent.com/keepassxreboot/keepassxc/develop/share/icons/application/256x256/apps/keepassxc.png
     dest: "{{ xdg_data_home }}/icons/keepassxc.png"
     mode: u=rw,go=
 
