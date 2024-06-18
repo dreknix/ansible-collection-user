@@ -87,6 +87,10 @@
   ansible.builtin.import_tasks: main_restic.yml
   tags: user_bin_restic
 
+- name: Include task for installing sqlightbrowser
+  ansible.builtin.import_tasks: main_sqlightbrowser.yml
+  tags: user_bin_sqlightbrowser
+
 - name: Include task for installing task
   ansible.builtin.import_tasks: main_task.yml
   tags: user_bin_task

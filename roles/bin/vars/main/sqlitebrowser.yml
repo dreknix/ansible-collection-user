@@ -1,0 +1,15 @@
+---
+
+bin_sqlitebrowser_version: >-
+  {{ lookup('ini', 'version section=sqlitebrowser file={{ tools_version_file }}') }}
+
+bin_sqlitebrowser_github_repo_name: >-
+  {{ lookup('ini', 'name section=sqlitebrowser file={{ tools_version_file }}') }}
+
+bin_sqlitebrowser_url: "https://github.com/\
+  {{ bin_sqlitebrowser_github_repo_name }}/\
+  releases/download/\
+  v{{ bin_sqlitebrowser_version }}/\
+  DB_Browser_for_SQLite-v{{ bin_sqlitebrowser_version }}-x86_64.AppImage"
+
+...

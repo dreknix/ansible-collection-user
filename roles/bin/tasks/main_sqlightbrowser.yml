@@ -1,0 +1,17 @@
+---
+
+- name: Install libfuse2 (needed by sqlitebrowser AppImage)
+  become: true
+  ansible.builtin.package:
+    name: libfuse2
+    state: present
+
+- name: Include task for installing sqlitebrowser
+  ansible.builtin.import_tasks: install_binary.yml
+  vars:
+    binary: "sqlightbrowser"
+    version_args: "--version"
+    version_string: "DB Browser for SQLite Version {{ bin_sqlitebrowser_version }}"
+    url: "{{ bin_sqlitebrowser_url }}"
+
+...
