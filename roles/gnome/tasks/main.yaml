@@ -28,13 +28,13 @@
   ansible.builtin.file:
     path: "{{ gnome_font_path }}"
     state: directory
-    mode: 0755
+    mode: u=rwx,go=rx
 
 - name: Download nerd-font {{ gnome_font_name }}
   ansible.builtin.get_url:
     url: "{{ gnome_nerdfont_uri }}/{{ item | urlencode() }}"
     dest: "{{ gnome_font_path }}/{{ item | basename }}"
-    mode: 0644
+    mode: u=rw,go=r
   with_items:
     - "Hack/Regular/HackNerdFontMono-Regular.ttf"
     - "Hack/Regular/HackNerdFont-Regular.ttf"
@@ -264,7 +264,7 @@
   ansible.builtin.copy:
     src: "guake.desktop"
     dest: "{{ local_xdg_config_home }}/autostart/guake.desktop"
-    mode: 0644
+    mode: u=rw,go=r
 
 - name: Configure guake
   community.general.dconf:

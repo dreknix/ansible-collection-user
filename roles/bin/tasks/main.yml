@@ -8,13 +8,13 @@
   ansible.builtin.file:
     path: "{{ default_bin_path | default(bin_user_path, true) }}"
     state: directory
-    mode: 0755
+    mode: u=rwx,go=rx
 
 - name: Creates bash completion directory
   ansible.builtin.file:
     path: "{{ bin_bash_completion_path }}"
     state: directory
-    mode: 0755
+    mode: u=rwx,go=rx
 
 - name: Update apt
   become: true
