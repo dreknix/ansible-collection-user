@@ -36,7 +36,7 @@ version = 2.12.0
 [keepassxc]
 source  = github
 name    = keepassxreboot/keepassxc
-version = 2.7.8
+version = 2.7.9
 
 [kubectl]
 source  = misc
@@ -45,7 +45,7 @@ version = 1.26.1
 [lazygit]
 source  = github
 name    = jesseduffield/lazygit
-version = 0.42.0
+version = 0.43.1
 
 [lazydocker]
 source  = github
@@ -75,7 +75,7 @@ version = 0.8.4
 [restic]
 source  = github
 name    = restic/restic
-version = 0.16.4
+version = 0.16.5
 
 [sqlitebrowser]
 source  = github
@@ -85,7 +85,7 @@ version = 3.12.2
 [task]
 source  = github
 name    = go-task/task
-version = 3.37.2
+version = 3.38.0
 
 [taskwarrior]
 source  = github
